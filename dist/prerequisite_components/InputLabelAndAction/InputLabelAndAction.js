@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -14,7 +37,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MuiInputActionLink = exports.MuiGrid = exports.StyledInputLabel = exports.MuiInputHelpIcon = exports.labelFocus = void 0;
+exports.StyledSpan = exports.MuiInputActionLink = exports.MuiGrid = exports.StyledInputLabel = exports.MuiInputHelpIcon = exports.labelFocus = void 0;
 /* ======================================================================== *
  * Copyright 2024 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -34,7 +57,7 @@ const InputLabel_1 = __importDefault(require("@mui/material/InputLabel"));
 const Grid_1 = __importDefault(require("@mui/material/Grid"));
 const help_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/help"));
 const material_1 = require("@mui/material");
-const Tooltip_1 = __importDefault(require("../../Tooltip"));
+const Tooltip_1 = __importStar(require("../../Tooltip"));
 const Link_1 = __importDefault(require("../../Link"));
 exports.labelFocus = (0, material_1.styled)('div')((theme) => {
     // if the textbox is focused then the label should get styled with the primary theme color
@@ -51,15 +74,14 @@ exports.StyledInputLabel = (0, material_1.styled)(InputLabel_1.default)((theme) 
     return Object.assign(Object.assign({}, theme.theme.typography.subtitle2), { color: theme.theme.palette.text.secondary, margin: '0px 0px 4px 0px', pointerEvents: 'inherit', position: 'relative', display: 'inline-flex', alignItems: 'center', transform: 'none' });
 });
 const getMuiInputLabelProps = (props) => {
-    const inputLabelId = props.label && props.id ? `${props.id}-label` : undefined;
     const inputLabelProps = {
         color: props.color,
         disabled: props.disabled,
         error: props.error,
         required: props.required,
         sx: props.sx,
-        htmlFor: props.id,
-        id: inputLabelId,
+        htmlFor: props.htmlFor,
+        id: props.id,
     };
     return inputLabelProps;
 };
@@ -77,8 +99,8 @@ const renderInputLabel = (props) => {
                     maxWidth: '120px', // half of default 240px
                 });
             } }), props.label),
-        props.helperIconTooltip ? react_1.default.createElement(Tooltip_1.default, { title: props.helperIconTooltip },
-            react_1.default.createElement(exports.MuiInputHelpIcon, { color: "action", fontSize: "small" })) : ''));
+        props.helperIconTooltip ? (react_1.default.createElement(Tooltip_1.default, { title: props.helperIconTooltip, placement: props.tooltipPlacement || Tooltip_1.TooltipPlacement.BOTTOM },
+            react_1.default.createElement(exports.MuiInputHelpIcon, { color: "action", fontSize: "small" }))) : ('')));
 };
 exports.MuiGrid = (0, material_1.styled)(Grid_1.default)((theme) => {
     return {
@@ -94,7 +116,7 @@ exports.MuiGrid = (0, material_1.styled)(Grid_1.default)((theme) => {
     };
 });
 exports.MuiInputActionLink = (0, material_1.styled)(Link_1.default)((theme) => {
-    return Object.assign(Object.assign({}, theme.theme.typography.caption), { textAlign: 'right', display: 'block', marginTop: '6px', marginBottom: '4px', padding: 0, paddingLeft: '4px', border: 'none', '&[disabled]': {
+    return Object.assign(Object.assign({}, theme.theme.typography.caption), { textAlign: 'right', display: 'block', padding: 0, border: 'none', lineHeight: '11px', '&[disabled]': {
             border: 'none',
         }, ':focus': {
             border: 0,
@@ -102,9 +124,21 @@ exports.MuiInputActionLink = (0, material_1.styled)(Link_1.default)((theme) => {
         }, ':hover': {
             cursor: 'pointer',
         }, float: 'right', ':not(:first-of-type)': {
-            borderRight: `1px solid ${theme.theme.palette.border.secondary}`,
+            borderLeft: `1px solid ${theme.theme.palette.border.secondary}`,
             padding: '0 4px', // 4px padding between action link and border divider for multiple action links
         } });
+});
+exports.StyledSpan = (0, material_1.styled)('span')((theme) => {
+    return {
+        display: 'inline-block',
+        marginTop: '6px',
+        marginBottom: '4px',
+        paddingRight: '4px',
+        ':not(:first-of-type)': {
+            borderLeft: `1px solid ${theme.theme.palette.border.secondary}`,
+            padding: '0 4px', // 4px padding between action link and border divider for multiple action links
+        },
+    };
 });
 const renderInputLabelAndAction = (props) => {
     if (props.actionProps) {
@@ -135,10 +169,12 @@ const renderInputLabelAndAction = (props) => {
                         },
                     };
                 } }, limitedActionProps && limitedActionProps.map((actionProp, index) => {
-                return (react_1.default.createElement(exports.MuiInputActionLink, { disabled: props.disabled, href: actionProp.href, onClick: actionProp.handleClick, underline: "none", sx: { display: 'inline' }, 
-                    // eslint-why index is not the sole key definition, it is prefixed by other identifiers
-                    // eslint-disable-next-line react/no-array-index-key
-                    key: `${actionProp.label}-${index}` }, actionProp.label));
+                return (
+                // eslint-why index is not the sole key definition, it is prefixed by other identifiers
+                // eslint-disable-next-line react/no-array-index-key
+                react_1.default.createElement(Tooltip_1.default, { title: actionProp.tooltip, placement: "bottom", key: `${actionProp.label}-${index}` },
+                    react_1.default.createElement(exports.StyledSpan, null,
+                        react_1.default.createElement(exports.MuiInputActionLink, { disabled: actionProp.disabled || props.disabled, href: actionProp.href, onClick: actionProp.handleClick, underline: "none", sx: { display: 'inline' } }, actionProp.label))));
             }))));
     }
     return (react_1.default.createElement(exports.MuiGrid, { container: true },

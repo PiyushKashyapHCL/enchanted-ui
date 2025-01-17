@@ -55,6 +55,11 @@ const getMuiListItemTextThemeOverrides = () => {
                 root: ({ ownerState, theme }) => {
                     return {
                         margin: '0',
+                        '&.list-item-text-truncate .MuiTypography-root': {
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                        },
                     };
                 },
             },
@@ -96,7 +101,7 @@ const ListItemText = (_a) => {
             react_1.default.createElement(material_1.Grid, { container: true },
                 react_1.default.createElement(material_1.Grid, { item: true, sx: { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, secondaryReactNode))));
     }
-    return (react_1.default.createElement(ListItemText_1.default, Object.assign({ ref: listRef }, props, { primary: primaryReactNode, secondary: secondaryReactNode })));
+    return (react_1.default.createElement(ListItemText_1.default, Object.assign({ className: `${tooltip ? '' : 'list-item-text-truncate'}`, ref: listRef }, props, { primary: primaryReactNode, secondary: secondaryReactNode })));
 };
 ListItemText.defaultProps = {
     tooltipPlacement: 'right',

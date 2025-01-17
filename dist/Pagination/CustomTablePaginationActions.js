@@ -31,6 +31,7 @@ const Typography_1 = __importDefault(require("../Typography/Typography"));
 const Autocomplete_1 = __importDefault(require("../Autocomplete/Autocomplete"));
 const theme_1 = require("../theme");
 const Pagination_1 = require("./Pagination");
+const Tooltip_1 = __importDefault(require("../Tooltip/Tooltip"));
 var TablePaginationTestIds;
 (function (TablePaginationTestIds) {
     TablePaginationTestIds["TABLE_PAGINATION_ACTIONS_ROOT"] = "tablePaginationActionsRoot";
@@ -68,7 +69,7 @@ const CustomTablePaginationActions = (props) => {
         react_1.default.createElement("div", { "data-testid": TablePaginationTestIds.TABLE_PAGINATION_ROWS_DIV },
             atLeast480px
                 && react_1.default.createElement(Typography_1.default, { variant: "body2", "data-testid": TablePaginationTestIds.TABLE_PAGINATION_ROWS_LABEL }, translation.rowsPerPageLabel),
-            react_1.default.createElement(Autocomplete_1.default, { noOptionsText: "", options: rowsPerPageOptions, getOptionLabel: (option) => { return (Number(option)).toString(); }, sx: { '& .MuiFormControl-root': { minWidth: '0px' }, '& .MuiAutocomplete-inputRoot': { width: '62px' } }, componentsProps: {
+            react_1.default.createElement(Autocomplete_1.default, { "aria-label": translation.rowsPerPageLabel, role: "listbox", tabIndex: 0, noOptionsText: "", options: rowsPerPageOptions, getOptionLabel: (option) => { return (Number(option)).toString(); }, sx: { '& .MuiFormControl-root': { minWidth: '0px' }, '& .MuiAutocomplete-inputRoot': { width: '62px' } }, componentsProps: {
                     popper: {
                         sx: {
                             '.MuiAutocomplete-listbox': Object.assign(Object.assign({}, theme_1.TYPOGRAPHY.body2), { '::-webkit-scrollbar': {
@@ -119,13 +120,17 @@ const CustomTablePaginationActions = (props) => {
                     }
                 } }),
             atLeast360px
-                && (react_1.default.createElement(Typography_1.default, { variant: "body2", "data-testid": TablePaginationTestIds.TABLE_PAGINATION_ROWS_TOTAL }, `${translation.rowsPerPageDescription.replace(Pagination_1.TablePaginationLocalizationPlaceholders.CURRENT_PAGE_TO_END_PAGE, `${currentPageShownStart}-${currentPageShownEnd < count ? currentPageShownEnd : count}`).replace(Pagination_1.TablePaginationLocalizationPlaceholders.TOTAL_ROWS_COUNT, `${count}`)}`))),
+                && (react_1.default.createElement(Typography_1.default, { variant: "body2", "data-testid": TablePaginationTestIds.TABLE_PAGINATION_ROWS_TOTAL }, `${translation.rowsPerPageDescription.replace(Pagination_1.TablePaginationLocalizationPlaceholders.CURRENT_PAGE_TO_END_PAGE, theme.direction === theme_1.ThemeDirectionType.RTL
+                    ? `${currentPageShownEnd < count ? currentPageShownEnd : count}-${currentPageShownStart}`
+                    : `${currentPageShownStart}-${currentPageShownEnd < count ? currentPageShownEnd : count}`).replace(Pagination_1.TablePaginationLocalizationPlaceholders.TOTAL_ROWS_COUNT, `${count}`)}`))),
         react_1.default.createElement("div", { "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_DIV },
-            react_1.default.createElement(IconButton_1.default, { onClick: handleFirstPageButtonClick, disabled: page === 0, "aria-label": translation.firstPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_FIRST }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(page__last_1.default, null) : react_1.default.createElement(page__first_1.default, null)),
-            react_1.default.createElement(IconButton_1.default, { onClick: handleBackButtonClick, disabled: page === 0, "aria-label": translation.prevPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_PREV }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(chevron__right_1.default, null) : react_1.default.createElement(chevron__left_1.default, null)),
+            react_1.default.createElement(Tooltip_1.default, { title: theme.direction === theme_1.ThemeDirectionType.RTL ? translation.lastPageAriaLabel : translation.firstPageAriaLabel, placement: "top" },
+                react_1.default.createElement(IconButton_1.default, { onClick: handleFirstPageButtonClick, disabled: page === 0, "aria-label": translation.firstPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_FIRST }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(page__last_1.default, null) : react_1.default.createElement(page__first_1.default, null))),
+            react_1.default.createElement(Tooltip_1.default, { title: theme.direction === theme_1.ThemeDirectionType.RTL ? translation.nextPageAriaLabel : translation.prevPageAriaLabel, placement: "top" },
+                react_1.default.createElement(IconButton_1.default, { onClick: handleBackButtonClick, disabled: page === 0, "aria-label": translation.prevPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_PREV }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(chevron__right_1.default, null) : react_1.default.createElement(chevron__left_1.default, null))),
             atLeast480px
                 && react_1.default.createElement(Typography_1.default, { variant: "body2", "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_LABEL }, translation.pageLabel),
-            react_1.default.createElement(Autocomplete_1.default, { noOptionsText: "", options: Array.from(Array(Math.ceil(count / rowsPerPage)).keys()), getOptionLabel: (option) => { return (Number(option) + 1).toString(); }, sx: { '& .MuiFormControl-root': { minWidth: '0px' }, '& .MuiAutocomplete-inputRoot': { width: '40px' } }, componentsProps: {
+            react_1.default.createElement(Autocomplete_1.default, { "aria-label": translation.pageLabel, tabIndex: 0, role: "listbox", noOptionsText: "", options: Array.from(Array(Math.ceil(count / rowsPerPage)).keys()), getOptionLabel: (option) => { return (Number(option) + 1).toString(); }, sx: { '& .MuiFormControl-root': { minWidth: '0px' }, '& .MuiAutocomplete-inputRoot': { width: '40px' } }, componentsProps: {
                     popper: {
                         sx: {
                             '.MuiAutocomplete-listbox': Object.assign(Object.assign({}, theme_1.TYPOGRAPHY.body2), { '::-webkit-scrollbar': {
@@ -168,7 +173,9 @@ const CustomTablePaginationActions = (props) => {
                 } }),
             atLeast480px
                 && (react_1.default.createElement(Typography_1.default, { variant: "body2", "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_TOTAL }, `${translation.pageDescription.replace(Pagination_1.TablePaginationLocalizationPlaceholders.TOTAL_PAGES_COUNT, `${Math.max(0, Math.ceil(count / rowsPerPage) - 1) + 1}`)}`)),
-            react_1.default.createElement(IconButton_1.default, { onClick: handleNextButtonClick, disabled: page >= Math.ceil(count / rowsPerPage) - 1, "aria-label": translation.nextPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_NEXT }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(chevron__left_1.default, null) : react_1.default.createElement(chevron__right_1.default, null)),
-            react_1.default.createElement(IconButton_1.default, { onClick: handleLastPageButtonClick, disabled: page >= Math.ceil(count / rowsPerPage) - 1, "aria-label": translation.lastPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_LAST }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(page__first_1.default, null) : react_1.default.createElement(page__last_1.default, null)))));
+            react_1.default.createElement(Tooltip_1.default, { title: theme.direction === theme_1.ThemeDirectionType.RTL ? translation.prevPageAriaLabel : translation.nextPageAriaLabel, placement: "top" },
+                react_1.default.createElement(IconButton_1.default, { onClick: handleNextButtonClick, disabled: page >= Math.ceil(count / rowsPerPage) - 1, "aria-label": translation.nextPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_NEXT }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(chevron__left_1.default, null) : react_1.default.createElement(chevron__right_1.default, null))),
+            react_1.default.createElement(Tooltip_1.default, { title: theme.direction === theme_1.ThemeDirectionType.RTL ? translation.firstPageAriaLabel : translation.lastPageAriaLabel, placement: "top" },
+                react_1.default.createElement(IconButton_1.default, { onClick: handleLastPageButtonClick, disabled: page >= Math.ceil(count / rowsPerPage) - 1, "aria-label": translation.lastPageAriaLabel, "data-testid": TablePaginationTestIds.TABLE_PAGINATION_PAGE_LAST }, theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(page__first_1.default, null) : react_1.default.createElement(page__last_1.default, null))))));
 };
 exports.default = CustomTablePaginationActions;

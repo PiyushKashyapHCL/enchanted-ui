@@ -45,6 +45,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const AccordionSummary_1 = __importDefault(require("@mui/material/AccordionSummary"));
 const styles_1 = require("@mui/material/styles");
+const StyledHoverActions = (0, styles_1.styled)('div')(({ theme }) => {
+    return {
+        position: 'absolute',
+        top: '50%',
+        right: '0px',
+        transform: 'translateY(-50%)',
+        visibility: 'hidden',
+        opacity: '0',
+        transition: 'opacity 0.3s ease',
+    };
+});
 const StyledAccordionSummary = (0, styles_1.styled)(AccordionSummary_1.default)(({ theme, disabled }) => {
     return {
         '& .MuiBox-root:nth-of-type(1)': {
@@ -57,6 +68,7 @@ const StyledAccordionSummary = (0, styles_1.styled)(AccordionSummary_1.default)(
         minHeight: 'auto',
         padding: theme.spacing(1, 0.75, 0.5, 1),
         '& .MuiAccordionSummary-content': {
+            position: 'relative',
             margin: '0px',
             '&.Mui-expanded': {
                 margin: '0px',
@@ -88,11 +100,26 @@ const StyledAccordionSummary = (0, styles_1.styled)(AccordionSummary_1.default)(
             borderBottomLeftRadius: '4px',
             borderBottomRightRadius: '4px',
         },
+        '&:hover .hover-actions, &:focus-within .hover-actions': {
+            visibility: 'visible',
+            opacity: '1',
+        },
+        '& .hover-actions': {
+            '.IconButtonMainContainer': {
+                marginLeft: '8px',
+            },
+            '.IconButtonMainContainer:first-of-type': {
+                marginLeft: '0',
+            },
+        },
     };
 });
 const AccordionSummary = (_a) => {
     var props = __rest(_a, []);
-    return react_1.default.createElement(StyledAccordionSummary, Object.assign({}, props));
+    return (react_1.default.createElement(StyledAccordionSummary, Object.assign({}, props),
+        props.children,
+        props.hoveractions
+            && react_1.default.createElement(StyledHoverActions, { className: "hover-actions" }, props.hoveractions)));
 };
 AccordionSummary.defaultProps = {};
 __exportStar(require("@mui/material/AccordionSummary"), exports);

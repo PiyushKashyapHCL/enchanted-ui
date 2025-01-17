@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IActions } from './TileData';
 export declare const StyledBox: import("@emotion/styled").StyledComponent<import("@mui/system").SystemProps<import("@mui/material").Theme> & {
     children?: React.ReactNode;
@@ -20,7 +20,7 @@ export interface TilePropsType {
     itemClickedAction?(event: React.MouseEvent<HTMLElement>, tileItemId: string): void;
     handlePreviewAction?(event: React.MouseEvent<HTMLElement>, tileItemId: string): void;
     handleCheckboxChange?(event: React.ChangeEvent<HTMLInputElement>, tileItemId: string, isChecked: boolean): void;
-    tileActions: IActions[];
+    tileActions?: IActions[];
     ariaLabel?: string;
     ariaLabelledBy?: string;
     overflowTooltip?: string;
@@ -29,6 +29,8 @@ export interface TilePropsType {
     hasCheckBox: boolean;
     hasThumbnail?: boolean;
     disabled?: boolean;
+    syncIcon?: ReactNode;
+    hoverPreviewMenu?: string;
 }
 export declare enum TileTestIds {
     TILE_PREVIEW = "preview-icon-view"

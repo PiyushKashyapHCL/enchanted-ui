@@ -12,6 +12,7 @@ import { TablePaginationLocalization } from '../Pagination';
  * @member {boolean} endActions If true, the cell will display the endActions in row data
  * @member {boolean} showSortingIcon If true, the column header cell will permanently display the sortIcon
  * @member {string} tooltip If we have tooltip, the cell will display tooltip on hover on the cell
+ * @member {boolean} subTitle If true, the cell will display the subTitle in row data
  */
 export interface ExtendedGridColDef extends GridColDef {
     iconEnd?: boolean;
@@ -20,6 +21,7 @@ export interface ExtendedGridColDef extends GridColDef {
     endActions?: boolean;
     showSortingIcon?: boolean;
     tooltip?: string;
+    subTitle?: boolean;
 }
 export declare const alwaysVisibleColHeadIconModifier: string;
 export declare enum DataGridTestIds {
@@ -39,6 +41,7 @@ export type DataGridProps = MuiDataGridProps & {
     onCheckboxClick?: Function;
     focusedRow?: string;
     stickyHeader?: boolean;
+    isRowClickable?: boolean;
     totalCount: number;
     page: number;
     pageSize: number;

@@ -1,43 +1,23 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+/* ======================================================================== *
+ * Copyright 2024 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/*
- ********************************************************************
- * Licensed Materials - Property of HCL                             *
- *                                                                  *
- * Copyright HCL Technologies Ltd. 2024. All Rights Reserved.       *
- *                                                                  *
- * Note to US Government Users Restricted Rights:                   *
- *                                                                  *
- * Use, duplication or disclosure restricted by GSA ADP Schedule    *
- ********************************************************************
- */
-const react_1 = __importStar(require("react"));
+const react_1 = __importDefault(require("react"));
 const material_1 = require("@mui/material");
 const chevron__down_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/chevron--down"));
 const chevron__up_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/chevron--up"));
@@ -47,7 +27,6 @@ const warning_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/ca
 const Typography_1 = __importDefault(require("../../Typography"));
 const IconButton_1 = __importDefault(require("../../IconButton"));
 const CircularProgress_1 = __importDefault(require("../../ProgressIndicator/CircularProgress"));
-const ProgressSubHeader_1 = __importDefault(require("./ProgressSubHeader"));
 const Button_1 = __importDefault(require("../../Button"));
 const Tooltip_1 = __importDefault(require("../../Tooltip"));
 /**
@@ -80,7 +59,6 @@ const StyledHeader = (0, material_1.styled)(material_1.Box)((props) => {
                     '&[data-mui-test=warningIcon]': {
                         color: theme.palette.error.inverse,
                     },
-                    // this will not affect other svg icons under an IconButton parent with actions inside this upload progress bar
                     '&[data-mui-test=warningIcon],&[data-mui-test=checkmark--outlineIcon]': {
                         height: '16px',
                         width: '16px',
@@ -139,74 +117,66 @@ const StyledHeader = (0, material_1.styled)(material_1.Box)((props) => {
  * @returns The rendered ProgressHeader component.
  */
 const ProgressHeader = (props) => {
-    const { totalPercentage, uploadStatus, closeModal, totalSize, totalTime, stringLiterals, cancelAll, file, retryUploadItem, cancelItem, navigateFolder, learnMoreOnFailure, pauseButton, translation, } = props;
-    const [isVisibility, setIsVisibility] = (0, react_1.useState)(false);
-    /**
-     * Toggles the visibility of the progress header.
-     */
-    const toggleButtonClick = () => {
-        setIsVisibility(!isVisibility);
-    };
+    const { totalPercentage, uploadStatus, closeModal, stringLiterals, cancelAll, pauseButton, translation, expanded, toggleButtonClick, } = props;
     /**
      * Renders an icon based on the total percentage value.
      * @returns The icon component based on the total percentage value.
      */
     const renderIcon = () => {
+        let statusIcon;
         if (totalPercentage != null) {
             if (totalPercentage === 0) {
-                return react_1.default.createElement(warning_1.default, null);
+                statusIcon = react_1.default.createElement(warning_1.default, null);
             }
-            if (totalPercentage > 0 && totalPercentage <= 99) {
-                return (react_1.default.createElement(CircularProgress_1.default, { variant: "determinate", value: totalPercentage, size: 16 }));
+            else if (totalPercentage === 100) {
+                statusIcon = react_1.default.createElement(checkmark__outline_1.default, null);
             }
-            if (totalPercentage === 100) {
-                return react_1.default.createElement(checkmark__outline_1.default, null);
+            else {
+                statusIcon = (react_1.default.createElement(CircularProgress_1.default, { variant: "determinate", value: totalPercentage, size: 16 }));
             }
         }
-        return '';
+        return statusIcon;
     };
-    return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(StyledHeader, { style: { borderRadius: isVisibility ? '4px 4px 0px 0px' : '4px' } },
-            react_1.default.createElement(material_1.Box, { "data-testid": "wrapper" },
-                renderIcon(),
-                react_1.default.createElement(Typography_1.default, { variant: "body2" }, uploadStatus)),
-            react_1.default.createElement(material_1.Box, { "data-testid": "end-actions" },
-                pauseButton
-                    && (react_1.default.createElement(Button_1.default, { "data-testid": "pauseButton", onClick: (event) => {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            if (pauseButton)
-                                pauseButton();
-                        } }, stringLiterals.pauseButtonLabel)),
-                cancelAll
-                    && (react_1.default.createElement(Button_1.default, { "data-testid": "cancelAllButton", onClick: (event) => {
-                            event.preventDefault();
-                            event.stopPropagation();
-                            if (cancelAll)
-                                cancelAll();
-                        } }, stringLiterals.cancelAllLabel)),
-                react_1.default.createElement(material_1.Box, null,
-                    isVisibility && (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.collapseTooltip, tooltipsize: "small" },
-                        react_1.default.createElement(IconButton_1.default, { "data-testid": "collapseIconButton", onClick: toggleButtonClick, onKeyDown: (e) => {
-                                if (e.key === 'Enter') {
-                                    toggleButtonClick();
-                                }
-                            } },
-                            react_1.default.createElement(chevron__up_1.default, null)))),
-                    !isVisibility && (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.expandTooltip, tooltipsize: "small" },
-                        react_1.default.createElement(IconButton_1.default, { "data-testid": "expandIconButton", onClick: toggleButtonClick, onKeyDown: (e) => {
-                                if (e.key === 'Enter') {
-                                    toggleButtonClick();
-                                }
-                            } },
-                            react_1.default.createElement(chevron__down_1.default, null))))),
-                react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.closeButtonTooltip, tooltipsize: "small" },
-                    react_1.default.createElement(IconButton_1.default, { onClick: closeModal, onKeyDown: (e) => {
+    return (react_1.default.createElement(StyledHeader, { style: { borderRadius: expanded ? '4px 4px 0px 0px' : '4px' } },
+        react_1.default.createElement(material_1.Box, { "data-testid": "wrapper" },
+            renderIcon(),
+            react_1.default.createElement(Typography_1.default, { variant: "body2" }, uploadStatus)),
+        react_1.default.createElement(material_1.Box, { "data-testid": "end-actions" },
+            pauseButton
+                && (react_1.default.createElement(Button_1.default, { "data-testid": "pauseButton", onClick: (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if (pauseButton)
+                            pauseButton();
+                    } }, stringLiterals.pauseButtonLabel)),
+            cancelAll
+                && (react_1.default.createElement(Button_1.default, { "data-testid": "cancelAllButton", onClick: (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if (cancelAll)
+                            cancelAll();
+                    } }, stringLiterals.cancelAllLabel)),
+            react_1.default.createElement(material_1.Box, null,
+                expanded && (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.collapseTooltip, tooltipsize: "small" },
+                    react_1.default.createElement(IconButton_1.default, { "data-testid": "collapseIconButton", onClick: toggleButtonClick, onKeyDown: (e) => {
                             if (e.key === 'Enter') {
-                                closeModal(e);
+                                toggleButtonClick();
                             }
-                        }, "data-testid": "close-button" },
-                        react_1.default.createElement(close_1.default, null))))),
-        isVisibility && (react_1.default.createElement(ProgressSubHeader_1.default, { totalPercentage: totalPercentage, totalSize: totalSize, totalTime: totalTime, literals: stringLiterals, file: file, retryUploadItem: retryUploadItem, cancelItem: cancelItem, navigateFolder: navigateFolder, cancelAll: cancelAll, learnMoreOnFailure: learnMoreOnFailure, translation: translation }))));
+                        } },
+                        react_1.default.createElement(chevron__up_1.default, null)))),
+                !expanded && (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.expandTooltip, tooltipsize: "small" },
+                    react_1.default.createElement(IconButton_1.default, { "data-testid": "expandIconButton", onClick: toggleButtonClick, onKeyDown: (e) => {
+                            if (e.key === 'Enter') {
+                                toggleButtonClick();
+                            }
+                        } },
+                        react_1.default.createElement(chevron__down_1.default, null))))),
+            react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.closeButtonTooltip, tooltipsize: "small" },
+                react_1.default.createElement(IconButton_1.default, { onClick: closeModal, onKeyDown: (e) => {
+                        if (e.key === 'Enter') {
+                            closeModal(e);
+                        }
+                    }, "data-testid": "close-button" },
+                    react_1.default.createElement(close_1.default, null))))));
 };
 exports.default = ProgressHeader;

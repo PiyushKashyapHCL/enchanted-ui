@@ -67,7 +67,7 @@ const StyledAccordion = (0, styles_1.styled)(Accordion_1.default)((props) => {
     const { theme, variant, isfocused, hasNested, hasDivider, type, } = props;
     return {
         '& .MuiAccordionDetails-root': Object.assign({}, (hasNested ? { padding: '8px 0px 8px 8px' } : { padding: '8px 8px 8px 8px' })),
-        '&.MuiAccordion-root': Object.assign({ overflow: 'hidden', '&:focus': {
+        '&.MuiAccordion-root': Object.assign({ '&:focus': {
                 boxShadow: `0 0 0 2px ${theme.palette.primary.main}`,
                 zIndex: 1,
             } }, (isfocused && {

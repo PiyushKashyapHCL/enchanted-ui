@@ -108,7 +108,9 @@ const PanelTabContent = (_a) => {
                     React.createElement(material_1.Grid, { item: true, xs: 6 },
                         React.createElement(PanelTitle, { variant: "subtitle1" }, tab.content.title)),
                     React.createElement(PanelActions, { container: true, direction: "row", justifyContent: "flex-end", alignItems: "center" },
-                        React.createElement(material_1.Grid, null, tab.content.actionHeaderBar),
+                        React.createElement(material_1.Grid, { sx: {
+                                display: 'flex',
+                            } }, tab.content.actionHeaderBar),
                         toggleClose && (React.createElement(Tooltip_1.default, { title: (translation && translation.closeButtonTooltip) ? translation.closeButtonTooltip : '' },
                             React.createElement(CloseButtonStyled, { variant: IconButton_1.IconButtonVariants.WITH_PADDING, onClick: () => {
                                     return toggleClose ? toggleClose(!open) : null;

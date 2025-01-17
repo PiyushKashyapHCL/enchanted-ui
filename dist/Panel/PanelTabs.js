@@ -116,9 +116,15 @@ const getArrowIcon = (isPanelCollapsed) => {
 };
 const PanelTabs = ({ selectedTabValue, handleTabChange, tabs, isPanelCollapsed, togglePanel, translation, }) => {
     return (React.createElement(PanelTabContainerStyled, null,
-        React.createElement(PanelTabsStyled, { value: selectedTabValue, onChange: handleTabChange, "data-testid": "panel-tabs", orientation: "vertical", variant: "scrollable", tabIndex: -1 }, tabs.map((tab, index) => {
+        React.createElement(PanelTabsStyled, { value: selectedTabValue, onChange: (event, newValue) => {
+                handleTabChange(event, newValue);
+                event.stopPropagation();
+            }, onClick: (event) => {
+                handleTabChange(event, selectedTabValue);
+                event.stopPropagation();
+            }, "data-testid": "panel-tabs", orientation: "vertical", variant: "scrollable", tabIndex: -1 }, tabs.map((tab, index) => {
             const key = index;
-            const iconTooltip = (React.createElement(Tooltip_1.default, { title: tab.tabIcon.label }, tab.tabIcon.icon));
+            const iconTooltip = (React.createElement(Tooltip_1.default, { title: tab.tabIcon.label, placement: (tab.tabIcon && tab.tabIcon.tooltipPlacement) ? tab.tabIcon.tooltipPlacement : 'left' }, tab.tabIcon.icon));
             return (React.createElement(TabStyled, { key: `tab-${key}`, tabIndex: 0, "data-testid": `tab-${key}`, icon: iconTooltip, "aria-label": tab.tabIcon.label, disableFocusRipple: true }));
         })),
         togglePanel

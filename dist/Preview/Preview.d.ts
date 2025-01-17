@@ -17,6 +17,7 @@ import * as React from 'react';
  * @property {function} overrideHandleNext - Event handler that overrides the default next asset navigation
  * @property {boolean} isFetchingAssets - indicate whether the assets prop is still fetching, Note: even when this is false and asset is not finished rendering, <Preview /> will still show spinner
  * @property {boolean} customHeaderTitle - custom header title
+ * @property {boolean} isVersionComparison - check if the preivew is used for version comparison
 */
 export interface MediaType {
     mimeType: string;
@@ -52,6 +53,7 @@ export interface PreviewProps {
         nextAsset: string;
         previousAsset: string;
         download: string;
+        backButton: string;
     };
     isNextButtonDisabled?: boolean;
     isPreviousButtonDisabled?: boolean;
@@ -60,6 +62,7 @@ export interface PreviewProps {
     isFetchingAssets?: boolean;
     customHeaderTitle?: string;
     handleError?: (event: React.SyntheticEvent<HTMLVideoElement | HTMLImageElement, Event>) => void;
+    isVersionComparison?: boolean;
 }
 export declare enum PreviewTestIds {
     PREVIEW_SELECT_BUTTON = "previewSelectButton",

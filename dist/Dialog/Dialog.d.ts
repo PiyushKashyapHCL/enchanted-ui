@@ -36,6 +36,7 @@ export type DialogProps = MuiDialogProps & {
     onClose: Function;
     hideHeader?: boolean;
     hideFooter?: boolean;
+    closeIconToolTip?: string;
 };
 declare const Dialog: {
     ({ ...props }: DialogProps): React.JSX.Element;
@@ -47,6 +48,7 @@ declare const Dialog: {
         onClose: () => void;
         hideHeader: boolean;
         hideFooter: boolean;
+        closeIconToolTip: string;
     };
 };
 export * from '@mui/material/Dialog';

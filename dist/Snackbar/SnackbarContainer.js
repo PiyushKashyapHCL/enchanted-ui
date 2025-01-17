@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SnackbarContainerPosition = void 0;
 /* ======================================================================== *
  * Copyright 2024 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -15,11 +16,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * limitations under the License.                                           *
  * ======================================================================== */
 const styles_1 = require("@mui/material/styles");
-const SnackbarContainer = (0, styles_1.styled)('div')((theme) => {
+var SnackbarContainerPosition;
+(function (SnackbarContainerPosition) {
+    SnackbarContainerPosition["LEFT"] = "left";
+    SnackbarContainerPosition["RIGHT"] = "right";
+})(SnackbarContainerPosition = exports.SnackbarContainerPosition || (exports.SnackbarContainerPosition = {}));
+const SnackbarContainer = (0, styles_1.styled)('div')(({ position = SnackbarContainerPosition.RIGHT }) => {
     return {
         position: 'fixed',
-        bottom: '64px',
-        right: '24px',
+        bottom: '12px',
+        right: position === SnackbarContainerPosition.RIGHT ? '12px' : 'unset',
+        left: position === SnackbarContainerPosition.LEFT ? '12px' : 'unset',
         zIndex: 2,
     };
 });

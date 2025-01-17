@@ -35,6 +35,7 @@ export type SnackbarProps = MuiSnackbarProps & {
     variant: SnackbarVariants;
     disabledSnackbar: boolean;
     buttonText?: string;
+    buttonTextToolTip?: string;
     buttonAction: Function;
     onClose: Function;
     placeholderIcon?: JSX.Element;
@@ -42,6 +43,7 @@ export type SnackbarProps = MuiSnackbarProps & {
     showPlaceholderIcon?: boolean;
     progressVariant?: CircularProgressVariants;
     progressValue?: number;
+    closeIconToolTip?: string;
 };
 declare const Snackbar: {
     ({ ...props }: SnackbarProps): React.JSX.Element;
@@ -54,6 +56,7 @@ declare const Snackbar: {
         placeholderIconAction: () => void;
         onClose: () => void;
         showPlaceholderIcon: boolean;
+        closeIconToolTip: string;
     };
 };
 export * from '@mui/material/Snackbar';

@@ -32,6 +32,7 @@ const DataGridCell = (props) => {
     const apiContext = (0, x_data_grid_1.useGridApiContext)();
     const valueRef = react_1.default.useRef(null); // add ref to truncate text
     const [tooltip, setTooltip] = react_1.default.useState('');
+    const [subTitleTooltip, setSubTitleTooltip] = react_1.default.useState('');
     const [innerWidth, setInnerWidth] = react_1.default.useState(window.innerWidth);
     const handleOnActive = react_1.default.useCallback(() => {
         setIsActive(true);
@@ -42,10 +43,15 @@ const DataGridCell = (props) => {
     const colDef = props.colDef;
     const { row } = props; // get row values
     const handleOnCellKeydown = react_1.default.useCallback((event) => {
-        var _a;
+        var _a, _b, _c;
         const target = event.target;
         // if cell has action button and if user press tab we should not hide action button
-        if (event.key === 'Tab' && row[`endActions-${colDef.field}`] && row[`endActions-${colDef.field}`].length > 0 && ((_a = target.parentElement) === null || _a === void 0 ? void 0 : _a.nextElementSibling)) {
+        if ((event.key === 'Tab' || event.key === 'ArrowDown' || event.key === 'ArrowUp')
+            && row[`endActions-${colDef.field}`] && row[`endActions-${colDef.field}`].length > 0) {
+            if (target.getAttribute('role') === 'button' && !((_c = (_b = (_a = target.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.parentElement) === null || _c === void 0 ? void 0 : _c.nextSibling)) {
+                setIsActive(false);
+                return;
+            }
             setIsActive(true);
         }
         else {
@@ -68,12 +74,14 @@ const DataGridCell = (props) => {
             const isOver = (0, domUtils_1.isOverflown)(valueRef.current);
             if (isOver) {
                 setTooltip(props.value);
+                setSubTitleTooltip(row[`subTitle-${colDef.field}`]);
             }
             else {
                 setTooltip('');
+                setSubTitleTooltip('');
             }
         }
-    }, [valueRef, props.value, innerWidth]);
+    }, [valueRef, props.value, innerWidth, row[`subTitle-${colDef.field}`]]);
     const hideEndActions = apiContext.current.getSelectedRows().size > 1 && apiContext.current.isRowSelected(row.id); // hide action button when there is a seleted row/s
     const isAlignRight = colDef.align === 'right';
     return (react_1.default.createElement(material_1.Grid // parent grid of our custom cell
@@ -99,7 +107,7 @@ const DataGridCell = (props) => {
                     height: '20px',
                     width: '20px',
                 } }) }, row[`avatar-${colDef.field}`])),
-        props.value && (react_1.default.createElement(material_1.Grid, { ref: valueRef, sx: Object.assign({ alignItems: 'center', display: 'flex', marginRight: '8px', minWidth: '0', overflow: 'hidden' }, (isAlignRight && {
+        props.value && (react_1.default.createElement(material_1.Grid, { ref: valueRef, sx: Object.assign({ alignItems: 'flex-start', display: 'flex', flexDirection: 'column', marginRight: '8px', minWidth: '0', overflow: 'hidden' }, (isAlignRight && {
                 marginLeft: `${colDef.iconStart || colDef.avatar ? '' : 'auto'}`,
                 marginRight: '0',
                 paddingLeft: '8px',
@@ -114,7 +122,17 @@ const DataGridCell = (props) => {
                 } },
                 react_1.default.createElement(Typography_1.default, Object.assign({ className: "MuiDataGrid-cell--value" }, tooltip && {
                     noWrap: true,
-                }, { variant: "body2" }), props.value)))),
+                }, { variant: "body2" }), props.value)),
+            colDef.subTitle && row[`subTitle-${colDef.field}`] && (react_1.default.createElement(Tooltip_1.default, { title: subTitleTooltip, tooltipsize: "small", componentsProps: {
+                    tooltip: {
+                        sx: {
+                            unicodeBidi: (row[`override-bidi-tooltip-${colDef.field}`]) ? 'plaintext' : 'initial',
+                        },
+                    },
+                } },
+                react_1.default.createElement(Typography_1.default, Object.assign({ className: "MuiDataGrid-cell--subTitle" }, subTitleTooltip && {
+                    noWrap: true,
+                }, { variant: "caption", color: "text.secondary" }), row[`subTitle-${colDef.field}`]))))),
         colDef.iconEnd && row[`iconEnd-${colDef.field}`] && (react_1.default.createElement(material_1.Grid, { sx: Object.assign({ alignItems: 'center', display: 'flex', marginRight: '8px' }, (isAlignRight && {
                 marginRight: '0',
             })) }, row[`iconEnd-${colDef.field}`])),

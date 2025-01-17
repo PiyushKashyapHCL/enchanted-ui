@@ -18,10 +18,11 @@ export declare enum CircularProgressTestIds {
  */
 export type CircularProgressProps = MuiCircularProgressProps & {
     showprogress?: boolean | 0 | 1;
+    withbackdrop?: boolean | 0 | 1;
 };
 export declare const getMuiCircularProgressThemeOverrides: () => Components<Omit<Theme, 'components'>>;
 declare const CircularProgress: {
-    ({ ...props }: CircularProgressProps): React.JSX.Element;
+    ({ withbackdrop, ...props }: CircularProgressProps): React.JSX.Element;
     defaultProps: CircularProgressProps;
 };
 export * from '@mui/material/CircularProgress';

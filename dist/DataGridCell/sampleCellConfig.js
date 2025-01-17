@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sampleColumnsMultiStartIconAndTooltip = exports.sampleRowMultiStartIconAndTooltip = exports.columnTest5 = exports.columnTest4 = exports.columnTest3 = exports.columnTest2 = exports.columnTest1 = exports.sampleRowsDisabled = exports.sampleRowContainsAll = exports.sampleColumnsModifiedRight = exports.sampleColumnsByDefaultLeft = exports.allColumnConfig = exports.endActionColumnConfig = exports.iconColumnConfig = exports.avatarColumnConfig = exports.iconEndColumnConfig = exports.baseColumnConfig = void 0;
+exports.sampleColumnsMultiStartIconAndTooltip = exports.sampleRowMultiStartIconAndTooltip = exports.columnTest5 = exports.columnTest4 = exports.columnTest3 = exports.columnTest2 = exports.columnTest1 = exports.sampleRowsDisabled = exports.sampleRowContainsSubTitle = exports.sampleRowContainsAll = exports.sampleColumnsWithSubTitle = exports.sampleColumnsModifiedRight = exports.sampleColumnsByDefaultLeft = exports.allColumnConfig = exports.endActionColumnConfig = exports.iconColumnConfig = exports.avatarColumnConfig = exports.iconEndColumnConfig = exports.baseColumnConfig = void 0;
 /* ======================================================================== *
  * Copyright 2024 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -115,6 +115,14 @@ exports.sampleColumnsModifiedRight = [
     Object.assign(Object.assign({}, exports.endActionColumnConfig), { align: 'right', headerAlign: 'right' }),
     Object.assign(Object.assign({}, exports.allColumnConfig), { align: 'right', headerAlign: 'right' }),
 ];
+exports.sampleColumnsWithSubTitle = [
+    Object.assign(Object.assign({}, exports.baseColumnConfig), { subTitle: true }),
+    Object.assign(Object.assign({}, exports.iconEndColumnConfig), { subTitle: true }),
+    Object.assign(Object.assign({}, exports.avatarColumnConfig), { subTitle: true }),
+    Object.assign(Object.assign({}, exports.iconColumnConfig), { subTitle: true }),
+    Object.assign(Object.assign({}, exports.endActionColumnConfig), { subTitle: true }),
+    Object.assign(Object.assign({}, exports.allColumnConfig), { subTitle: true }),
+];
 exports.sampleRowContainsAll = [
     {
         id: '1',
@@ -143,6 +151,9 @@ exports.sampleRowContainsAll = [
         ],
         all: 'Table row',
     },
+];
+exports.sampleRowContainsSubTitle = [
+    Object.assign(Object.assign({}, exports.sampleRowContainsAll[0]), { 'subTitle-baseColumn': 'Subtitle text-1', 'subTitle-iconEndColumn': 'Subtitle text-2', 'subTitle-avatarColumn': 'Subtitle text-3', 'subTitle-iconStartColumn': 'Subtitle text-4', 'subTitle-endActionColumn': 'Subtitle text-5', 'subTitle-all': 'Subtitle text-6' }),
 ];
 exports.sampleRowsDisabled = [
     Object.assign(Object.assign({}, exports.sampleRowContainsAll[0]), { disabled: true }),

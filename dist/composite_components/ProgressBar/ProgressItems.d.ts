@@ -1,6 +1,6 @@
 import React from 'react';
 import { IProgressState, Literals, ProgressBarLocalization } from './ProgressBar';
-interface ProgressItemProps {
+interface ProgressItemsProps {
     file: IProgressState[];
     retryUploadItem?(queueItem: IProgressState): void;
     cancelItem?(queueItem: IProgressState): void;
@@ -10,9 +10,9 @@ interface ProgressItemProps {
     translation?: ProgressBarLocalization | undefined;
 }
 /**
- * @component Renders the progress item component.
+ * @component Renders the progress items component.
  * @param {ProgressItemProps} props - The component props.
  * @returns {JSX.Element} The rendered component.
  */
-declare const ProgressItem: (props: ProgressItemProps) => React.JSX.Element;
-export default ProgressItem;
+declare const ProgressItems: (props: ProgressItemsProps) => React.JSX.Element;
+export default ProgressItems;

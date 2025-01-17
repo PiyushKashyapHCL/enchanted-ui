@@ -31,7 +31,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMuiBreadcrumbsThemeOverrides = void 0;
 const react_1 = __importDefault(require("react"));
 const Breadcrumbs_1 = __importDefault(require("@mui/material/Breadcrumbs"));
+const styles_1 = require("@mui/material/styles");
 const chevron__right_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/chevron--right"));
+const chevron__left_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/chevron--left"));
+const theme_1 = require("../theme");
 /**
  * Override out of the box styling from mui to align with designer theme
  * @returns override Breadcrumbs component styles and prop
@@ -112,7 +115,9 @@ const getMuiBreadcrumbsThemeOverrides = () => {
 exports.getMuiBreadcrumbsThemeOverrides = getMuiBreadcrumbsThemeOverrides;
 const Breadcrumbs = (_a) => {
     var props = __rest(_a, []);
-    return react_1.default.createElement(Breadcrumbs_1.default, Object.assign({}, props));
+    const theme = (0, styles_1.useTheme)();
+    const separator = theme.direction === theme_1.ThemeDirectionType.RTL ? react_1.default.createElement(chevron__left_1.default, null) : react_1.default.createElement(chevron__right_1.default, null);
+    return react_1.default.createElement(Breadcrumbs_1.default, Object.assign({ separator: separator }, props));
 };
 Breadcrumbs.defaultProps = {
     disabled: false,

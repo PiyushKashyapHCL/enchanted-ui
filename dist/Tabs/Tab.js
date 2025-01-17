@@ -71,7 +71,7 @@ const Tab = (_a) => {
             minHeight: 'auto',
             minWidth: 'auto',
             textTransform: 'none',
-        } })));
+        }, onClick: props.onClick })));
 };
 Tab.defaultProps = {};
 __exportStar(require("@mui/material/Tab"), exports);

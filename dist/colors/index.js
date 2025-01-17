@@ -69,6 +69,7 @@ var ColorNames;
     // theme colors
     ColorNames["PRIMARY_MAIN"] = "PrimaryMain";
     ColorNames["PRIMARY_DARK"] = "PrimaryDark";
+    ColorNames["PRIMARY_DARK_INVERSE"] = "PrimaryDarkInverse";
     ColorNames["PRIMARY_HOVER"] = "PrimaryHover";
     ColorNames["PRIMARY_INVERSE"] = "PrimaryInverse";
     ColorNames["PRIMARY_INVERSE_HOVER"] = "PrimaryInverseHover";
@@ -319,6 +320,7 @@ var ColorNames;
     ColorNames["HCLSOFTWAREBLUE07"] = "HCLSOFTWAREBLUE07";
     ColorNames["HCLSOFTWAREBLUE07_12P"] = "HCLSOFTWAREBLUE07 (12P)";
     ColorNames["HCLSOFTWAREBLUE07_8P"] = "HCLSOFTWAREBLUE07 (8P)";
+    ColorNames["HCLSOFTWAREBLUE07_20P"] = "HCLSOFTWAREBLUE07 (20P)";
     ColorNames["HCLSOFTWAREBLUE08"] = "HCLSOFTWAREBLUE08";
     ColorNames["HCLSOFTWAREBLUE09"] = "HCLSOFTWAREBLUE09";
     ColorNames["HCLSOFTWAREBLUE09_12P"] = "HCLSOFTWAREBLUE09 (12P)";
@@ -328,6 +330,7 @@ exports.Colors = new Map([
     // theme colors
     [ColorNames.PRIMARY_MAIN, blue_1.default.BLUE800],
     [ColorNames.PRIMARY_DARK, '#0029A9'],
+    [ColorNames.PRIMARY_DARK_INVERSE, '#E6FFFF'],
     [ColorNames.PRIMARY_HOVER, '#002B6C'],
     [ColorNames.PRIMARY_INVERSE, blue_1.default.BLUE300],
     [ColorNames.PRIMARY_INVERSE_HOVER, '#A7FFFF'],
@@ -561,6 +564,7 @@ exports.Colors = new Map([
     [ColorNames.HCLSOFTWAREBLUE07, hclsoftwareblue_1.default.HCLSOFTWAREBLUE07],
     [ColorNames.HCLSOFTWAREBLUE07_12P, hclsoftwareblue_1.default.HCLSOFTWAREBLUE07_12],
     [ColorNames.HCLSOFTWAREBLUE07_8P, hclsoftwareblue_1.default.HCLSOFTWAREBLUE07_8],
+    [ColorNames.HCLSOFTWAREBLUE07_20P, hclsoftwareblue_1.default.HCLSOFTWAREBLUE07_20],
     [ColorNames.HCLSOFTWAREBLUE08, hclsoftwareblue_1.default.HCLSOFTWAREBLUE08],
     [ColorNames.HCLSOFTWAREBLUE09, hclsoftwareblue_1.default.HCLSOFTWAREBLUE09],
     [ColorNames.HCLSOFTWAREBLUE09_12P, hclsoftwareblue_1.default.HCLSOFTWAREBLUE09_12],

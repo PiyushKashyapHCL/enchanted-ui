@@ -135,15 +135,6 @@ const ZoomContainer = (0, styles_1.styled)(material_1.Grid)((props) => {
         },
     };
 });
-const StyledIconButton = (0, styles_1.styled)(IconButton_1.default)((props) => {
-    const { theme } = props;
-    return {
-        color: `1px solid ${theme.palette.common.white}`,
-        '&:hover': {
-            backgroundColor: theme.palette.action.hoverInverse,
-        },
-    };
-});
 const PreviousPreviewButton = (0, styles_1.styled)(material_1.Grid)((props) => {
     const { theme } = props;
     return {
@@ -222,7 +213,7 @@ const zoomOptions = [
     325,
     400,
 ];
-const Preview = ({ open, reactComponent, renditionLabel, assets, index, isSelectButtonDisabled, selectButtonTitle, onClickBackButton, handleSelect, handleDownload, tooltipTexts, isNextButtonDisabled, isPreviousButtonDisabled, overrideHandleNext, overrideHandlePrevious, isFetchingAssets = false, customHeaderTitle, handleError, }) => {
+const Preview = ({ open, reactComponent, renditionLabel, assets, index, isSelectButtonDisabled, selectButtonTitle, onClickBackButton, handleSelect, handleDownload, tooltipTexts, isNextButtonDisabled, isPreviousButtonDisabled, overrideHandleNext, overrideHandlePrevious, isFetchingAssets = false, customHeaderTitle, handleError, isVersionComparison = false, }) => {
     var _a, _b;
     const fallbackAssetValue = [
         {
@@ -482,24 +473,29 @@ const Preview = ({ open, reactComponent, renditionLabel, assets, index, isSelect
                 return (React.createElement(StyledImage, { key: currentRendition.source, ref: imageRef, "data-testid": PreviewTestIds.PREVIEW_IMAGE, src: currentRendition.source, sx: {
                         transform: `scale(${zoomPercentage / 100})`,
                         opacity: isCurrentAssetReady ? 1 : 0,
+                        transformOrigin: 'center',
                     }, draggable: "true", onLoad: handleImageLoad, onError: (e) => {
                         if (handleError)
                             handleError(e);
                     } }));
         }
     };
-    return (React.createElement(Backdrop_1.default, { open: open, sx: (theme) => {
-            return {
-                zIndex: 999,
-                backgroundColor: theme.palette.background.secondary,
-            };
+    return (React.createElement(Backdrop_1.default, { open: open, sx: {
+            zIndex: 999,
+            position: isVersionComparison ? 'relative' : 'fixed',
+            backgroundColor: (scopedTheme) => { return scopedTheme.palette.background.secondary; },
         } },
-        React.createElement(PreviewContainer, { container: true, direction: "column", justifyContent: "flex-start" },
+        React.createElement(PreviewContainer, { container: true, direction: "column", justifyContent: "flex-start", sx: {
+                height: isVersionComparison ? '400px' : '100vh',
+            } },
             React.createElement(material_1.Grid, null,
-                React.createElement(Header_1.default, { startSection: {
+                React.createElement(Header_1.default, { sx: {
+                        display: isVersionComparison ? 'none' : '',
+                    }, startSection: {
                         hamburgerSpace: false,
                         withBackButton: true,
                         title: customHeaderTitle !== null && customHeaderTitle !== void 0 ? customHeaderTitle : currentAsset.title,
+                        backIconToolTip: tooltipTexts.backButton,
                     }, middleSection: [
                         React.createElement(Typography_1.default, { color: "textSecondary", variant: "subtitle2", marginRight: -1 }, renditionLabel),
                         React.createElement(Select_1.default, { "data-testid": PreviewTestIds.PREVIEW_RENDITION_DROPDOWN, hiddenLabel: true, required: true, value: (_b = currentRendition.type) !== null && _b !== void 0 ? _b : '', onChange: handleOnChangeSelect, disabled: !isCurrentAssetReady || reactComponent !== undefined }, currentAsset.renditions.map((rendition) => {
@@ -507,12 +503,13 @@ const Preview = ({ open, reactComponent, renditionLabel, assets, index, isSelect
                         })),
                     ], hideMiddleSection: isVideo, endSection: [
                         React.createElement(Tooltip_1.default, { tooltipsize: "small", placement: "bottom", title: tooltipTexts.download },
-                            React.createElement(IconButton_1.default, { "data-testid": PreviewTestIds.PREVIEW_DOWNLOAD_BUTTON, variant: IconButton_1.IconButtonVariants.WITH_PADDING, disabled: !isCurrentAssetReady || reactComponent !== undefined, onClick: (e) => {
-                                    const selectRenditionId = currentRendition.id;
-                                    if (handleDownload)
-                                        handleDownload(e, selectRenditionId);
-                                } },
-                                React.createElement(download_1.default, null))),
+                            React.createElement("span", null,
+                                React.createElement(IconButton_1.default, { "data-testid": PreviewTestIds.PREVIEW_DOWNLOAD_BUTTON, variant: IconButton_1.IconButtonVariants.WITH_PADDING, disabled: !isCurrentAssetReady || reactComponent !== undefined || isVersionComparison, onClick: (e) => {
+                                        const selectRenditionId = currentRendition.id;
+                                        if (handleDownload)
+                                            handleDownload(e, selectRenditionId);
+                                    }, showendicon: 0 },
+                                    React.createElement(download_1.default, null)))),
                         React.createElement(Button_1.default, { "data-testid": PreviewTestIds.PREVIEW_SELECT_BUTTON, variant: Button_1.ButtonVariants.CONTAINED, disabled: isSelectButtonDisabled || !isCurrentAssetReady || reactComponent !== undefined, onClick: (e) => {
                                 const selectRenditionId = currentRendition.id;
                                 if (handleSelect)
@@ -521,31 +518,36 @@ const Preview = ({ open, reactComponent, renditionLabel, assets, index, isSelect
                     ], onClickBackButton: onClickBackButton })),
             React.createElement(React.Fragment, null,
                 React.createElement(ImageContainer, { ref: imageContainerRef, container: true, direction: "row", justifyContent: "space-between", alignItems: "center", sx: {
-                        height: `calc(100% - ${isVideo ? '55' : '61'}px)`,
+                        height: `calc(100% - ${isVideo ? '55' : `${isVersionComparison ? '0' : '66'}`}px)`,
+                        overflow: (zoomPercentage === zoomDefault || zoomPercentage === zoomToFitPercentage) ? 'hidden' : 'auto',
                     } },
-                    React.createElement(Tooltip_1.default, { tooltipsize: "small", placement: "bottom-start", title: tooltipTexts.previousAsset },
+                    !isVersionComparison && (React.createElement(Tooltip_1.default, { tooltipsize: "small", placement: "bottom-start", title: tooltipTexts.previousAsset },
                         React.createElement(PreviousPreviewButton, null,
-                            React.createElement(StyledArrowButton, { "data-testid": PreviewTestIds.PREVIEW_PREV_BUTTON, disabled: isPreviousDisabled, onClick: handlePreviousAsset },
-                                React.createElement(chevron__left_1.default, null)))),
+                            React.createElement("span", null,
+                                React.createElement(StyledArrowButton, { "data-testid": PreviewTestIds.PREVIEW_PREV_BUTTON, disabled: isPreviousDisabled || isVersionComparison, onClick: handlePreviousAsset, showendicon: 0 },
+                                    React.createElement(chevron__left_1.default, null)))))),
                     React.createElement(React.Fragment, null,
                         (isCurrentAssetReady === false && reactComponent === undefined) && (React.createElement(CircularProgressContainer, { "data-testid": PreviewTestIds.PREVIEW_CIRCULAR_PROGRESS, container: true, sx: {
-                                height: `calc(100% - ${isVideo ? '55' : '61'}px)`,
+                                height: `calc(100% - ${isVideo ? '55' : `${isVersionComparison ? '0' : '66'}`}px)`,
                             } },
-                            React.createElement(CircularProgress_1.default, null))),
+                            React.createElement(CircularProgress_1.default, { withbackdrop: 0 }))),
                         renderOptions()),
-                    React.createElement(Tooltip_1.default, { tooltipsize: "small", placement: "bottom-end", title: tooltipTexts.nextAsset },
+                    !isVersionComparison && (React.createElement(Tooltip_1.default, { tooltipsize: "small", placement: "bottom-end", title: tooltipTexts.nextAsset },
                         React.createElement(NextPreviewButton, null,
-                            React.createElement(StyledArrowButton, { "data-testid": PreviewTestIds.PREVIEW_NEXT_BUTTON, disabled: isNextDisabled, onClick: handleNextAsset },
-                                React.createElement(chevron__right_1.default, null))))),
+                            React.createElement("span", null,
+                                React.createElement(StyledArrowButton, { "data-testid": PreviewTestIds.PREVIEW_NEXT_BUTTON, disabled: isNextDisabled || isVersionComparison, onClick: handleNextAsset, showendicon: 0 },
+                                    React.createElement(chevron__right_1.default, null))))))),
                 (!isVideo && isCurrentAssetReady && reactComponent === undefined) && (React.createElement(material_1.Grid, { container: true, justifyContent: "center" },
-                    React.createElement(ZoomContainer, null,
+                    React.createElement(ZoomContainer, { sx: {
+                            position: isVersionComparison ? 'absolute' : 'fixed',
+                        } },
                         React.createElement(Tooltip_1.default, { tooltipsize: "small", placement: "top", title: tooltipTexts.zoomOut },
-                            React.createElement(StyledIconButton, { "data-testid": PreviewTestIds.PREVIEW_ZOOM_OUT_BUTTON, variant: IconButton_1.IconButtonVariants.WITHOUT_PADDING, disabled: zoomOutDisable, onClick: handleZoomOut },
+                            React.createElement(IconButton_1.default, { "data-testid": PreviewTestIds.PREVIEW_ZOOM_OUT_BUTTON, variant: IconButton_1.IconButtonVariants.WITH_PADDING, inversecolors: true, disabled: zoomOutDisable, onClick: handleZoomOut, showendicon: 0 },
                                 React.createElement(zoom__out_1.default, null))),
                         React.createElement(Tooltip_1.default, { "data-testid": PreviewTestIds.PREVIEW_ZOOM_TOOLTIP_TEXT, tooltipsize: "small", placement: "top", title: zoomButtonTooltip },
                             React.createElement(Button_1.default, { "data-testid": PreviewTestIds.PREVIEW_ZOOM_PERCENT_BUTTON, variant: "text", size: "small", onClick: zoomPercentageFit }, `${zoomPercentage}%`)),
                         React.createElement(Tooltip_1.default, { tooltipsize: "small", placement: "top", title: tooltipTexts.zoomIn },
-                            React.createElement(StyledIconButton, { "data-testid": PreviewTestIds.PREVIEW_ZOOM_IN_BUTTON, variant: IconButton_1.IconButtonVariants.WITHOUT_PADDING, disabled: zoomInDisable, onClick: handleZoomIn },
+                            React.createElement(IconButton_1.default, { "data-testid": PreviewTestIds.PREVIEW_ZOOM_IN_BUTTON, variant: IconButton_1.IconButtonVariants.WITH_PADDING, inversecolors: true, disabled: zoomInDisable, onClick: handleZoomIn, showendicon: 0 },
                                 React.createElement(zoom__in_1.default, null))))))))));
 };
 Preview.defaultProps = {

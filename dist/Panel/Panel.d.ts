@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { DrawerProps } from '../hidden_components/Drawer';
+import { TooltipPlacement } from '../Tooltip/Tooltip';
 export declare enum PanelVariants {
     WITHOUT_PADDING = "without padding",
     WITH_PADDING = "with padding"
@@ -14,6 +15,7 @@ export interface TabContentProps {
 export interface TabIconProps {
     icon: JSX.Element;
     label: string;
+    tooltipPlacement?: TooltipPlacement;
 }
 export interface TabsPanelProps {
     tabIcon: TabIconProps;

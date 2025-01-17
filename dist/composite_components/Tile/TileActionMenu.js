@@ -87,7 +87,7 @@ const TileActionMenu = (props) => {
         react_1.default.createElement(Tooltip_1.default, { title: overflowIconTitle },
             react_1.default.createElement(IconButton_1.default, { "data-testid": TileActionTestIds.TILE_ACTION_OVERFLOW, "aria-controls": "fade-menu", "aria-haspopup": "true", onClick: handleClick, disabled: disabled },
                 react_1.default.createElement(overflow_menu__horizontal_1.default, null))),
-        react_1.default.createElement(Menu_1.default, { PaperProps: { sx: { width: '240px', padding: '0px' } }, id: "basic-menu", "data-testid": TileActionTestIds.TILE_ACTION_MENU, anchorEl: anchorEl, open: open, onClose: handleClose, MenuListProps: {
+        react_1.default.createElement(Menu_1.default, { PaperProps: { sx: { padding: '0px' } }, id: "basic-menu", "data-testid": TileActionTestIds.TILE_ACTION_MENU, anchorEl: anchorEl, open: open, onClose: handleClose, MenuListProps: {
                 'aria-labelledby': 'basic-button',
             }, size: definedSize }, actionList.map((action, index) => {
             if (hasThumbnail === false) {

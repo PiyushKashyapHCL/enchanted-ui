@@ -23,10 +23,9 @@ export interface IProgressState {
 export interface Literals {
     learnMoreLabel: string;
     totalSizeLabel: string;
-    retryLabel: string;
     cancelLabel: string;
-    cancelAllLabel: string;
-    pauseButtonLabel: string;
+    cancelAllLabel?: string;
+    pauseButtonLabel?: string;
 }
 export interface ProgressBarLocalization {
     closeButtonTooltip?: string;

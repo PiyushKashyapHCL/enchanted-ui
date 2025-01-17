@@ -122,7 +122,7 @@ const getMuiAvatarThemeOverrides = () => {
         MuiAvatar: {
             styleOverrides: {
                 root: ({ ownerState, theme }) => {
-                    return (Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ '&.MuiAvatar-root': Object.assign({ height: '24px', width: '24px', border: `1px solid ${theme.palette.border.secondary}`, display: 'flex', justifyContent: 'center', alignItems: 'center' }, ownerState.variant === 'rounded' && {
+                    return (Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ '&.MuiAvatar-root': Object.assign({ height: '24px', width: '24px', boxSizing: 'border-box', border: `1px solid ${theme.palette.border.secondary}`, display: 'flex', justifyContent: 'center', alignItems: 'center' }, ownerState.variant === 'rounded' && {
                             padding: '3px',
                             borderRadius: '2px',
                         }), '& .MuiSvgIcon-root': Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ height: '16px', width: '16px' }, (ownerState.color === 'default' && {

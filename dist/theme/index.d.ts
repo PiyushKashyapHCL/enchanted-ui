@@ -43,6 +43,7 @@ declare module '@mui/material/styles' {
     interface TypeAction {
         activeOpacity?: string;
         selectedOpacityModified?: string;
+        selectedOpacityHover?: string;
         hoverInverse?: string;
         hoverOpacityModified?: string;
         inverse?: string;
@@ -50,15 +51,19 @@ declare module '@mui/material/styles' {
         disabledOpacityModified?: string;
         focusOpacityModified?: string;
         disableOpacityHover?: string;
+        focusInverse?: string;
+        selectedInverse?: string;
     }
     interface PaletteOptions {
         border: TypeBorder;
     }
     interface PaletteColor {
         inverse?: string;
+        darkInverse?: string;
     }
     interface SimplePaletteColorOptions {
         inverse?: string;
+        darkInverse?: string;
     }
     interface Palette {
         border: TypeBorder;

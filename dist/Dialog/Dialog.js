@@ -52,6 +52,7 @@ const DialogTitle_1 = __importDefault(require("./DialogTitle"));
 const DialogContent_1 = __importDefault(require("./DialogContent"));
 const DialogActions_1 = __importDefault(require("./DialogActions"));
 const Backdrop_1 = __importDefault(require("../Backdrop"));
+const Tooltip_1 = __importDefault(require("../Tooltip"));
 var DialogSizes;
 (function (DialogSizes) {
     DialogSizes["EXTRA_SMALL"] = "XS";
@@ -125,8 +126,9 @@ const Dialog = (_a) => {
         (headerChildren && !hideHeader)
             && (react_1.default.createElement(DialogTitle_1.default, { "data-testid": DialogTestIds.DIALOG_TITLE },
                 react_1.default.createElement(material_1.Grid, null, headerChildren),
-                react_1.default.createElement(IconButton_1.default, { "aria-label": "close", onClick: (e) => { rest.onClose(e, 'backdropClick'); }, "data-testid": DialogTestIds.DIALOG_CLOSE_ICON },
-                    react_1.default.createElement(close_1.default, null)))),
+                react_1.default.createElement(Tooltip_1.default, { title: props.closeIconToolTip },
+                    react_1.default.createElement(IconButton_1.default, { "aria-label": "close", onClick: (e) => { rest.onClose(e, 'backdropClick'); }, "data-testid": DialogTestIds.DIALOG_CLOSE_ICON },
+                        react_1.default.createElement(close_1.default, null))))),
         react_1.default.createElement(DialogContent_1.default, { sx: (theme) => {
                 return {
                     padding: withPadding ? '12px' : 0,
@@ -147,6 +149,7 @@ Dialog.defaultProps = {
     /* eslint-enable no-empty-function */
     hideHeader: false,
     hideFooter: false,
+    closeIconToolTip: 'Close',
 };
 __exportStar(require("@mui/material/Dialog"), exports);
 exports.default = Dialog;

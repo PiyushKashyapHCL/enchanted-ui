@@ -68,6 +68,7 @@ const Button_1 = __importDefault(require("../Button"));
 const IconButton_1 = __importStar(require("../IconButton"));
 const Typography_1 = __importDefault(require("../Typography"));
 const CircularProgress_1 = __importStar(require("../ProgressIndicator/CircularProgress"));
+const Tooltip_1 = __importDefault(require("../Tooltip"));
 var SnackbarVariants;
 (function (SnackbarVariants) {
     SnackbarVariants["WARNING"] = "warning";
@@ -157,41 +158,35 @@ const getMuiSnackbarThemeOverrides = () => {
                                         padding: '1px 5px',
                                     },
                                 } }),
-                            '.MuiIconButton-root': {
-                                marginTop: '-4px',
+                            '.IconButtonMainContainer': {
+                                marginTop: '-2px',
                                 marginRight: '0px',
                                 padding: 0,
-                                '&:hover': {
+                                '& .MuiIconButton-root:hover': {
                                     backgroundColor: theme.palette.action.hoverInverse,
                                 },
-                                '&:focus': {
+                                '& .MuiIconButton-root:focus': {
                                     '.MuiSvgIcon-root': {
                                         border: `1px solid ${theme.palette.primary.inverse}`,
                                     },
                                 },
-                                '&[data-testid=snackbarPlaceholderIcon]': {
+                                '& .MuiIconButton-root[data-testid=snackbarPlaceholderIcon]': {
                                     position: 'relative',
                                 },
-                                '&[data-testid=snackbarPlaceholderIcon] .MuiSvgIcon-root': {
+                                '& .MuiIconButton-root[data-testid=snackbarPlaceholderIcon] .MuiSvgIcon-root': {
                                     color: theme.palette.action.inverse,
                                 },
-                                '&:last-of-type': {
-                                    marginTop: '-4px',
-                                    marginRight: 0,
-                                    padding: 0,
-                                    position: 'relative',
-                                },
-                                '.MuiSvgIcon-root': {
+                                '.MuiIconButton-root .MuiSvgIcon-root': {
                                     '&[data-mui-test=closeIcon]': {
                                         color: theme.palette.action.inverse,
                                     },
                                 },
-                                '&:disabled': {
-                                    '&[data-testid=snackbarPlaceholderIcon] .MuiSvgIcon-root': {
+                                '& .MuiIconButton-root:disabled': {
+                                    '& .MuiIconButton-root[data-testid=snackbarPlaceholderIcon] .MuiSvgIcon-root': {
                                         color: theme.palette.action.disabledInverse,
                                     },
-                                    '.MuiSvgIcon-root': {
-                                        '&[data-mui-test=closeIcon]': {
+                                    '.MuiIconButton-root .MuiSvgIcon-root': {
+                                        '& .MuiIconButton-root[data-mui-test=closeIcon]': {
                                             color: theme.palette.action.disabledInverse,
                                         },
                                     },
@@ -231,13 +226,16 @@ const Snackbar = (_a) => {
     return (react_1.default.createElement(Snackbar_1.default, Object.assign({}, rest),
         react_1.default.createElement(Box_1.default, null,
             getStatusIcon(rest.variant),
-            react_1.default.createElement(Typography_1.default, Object.assign({ variant: "body2", "data-testid": SnackbarTestIds.SNACKBAR_MESSAGE }, buttonText && { 'data-buttontext': buttonText }, showPlaceholderIcon && { 'data-hasplaceholdericon': 'true' }), rest.message),
+            react_1.default.createElement(Typography_1.default, Object.assign({ role: "alert" // for screen readers to announce the message
+                , variant: "body2", "data-testid": SnackbarTestIds.SNACKBAR_MESSAGE }, buttonText && { 'data-buttontext': buttonText }, showPlaceholderIcon && { 'data-hasplaceholdericon': 'true' }), rest.message),
             buttonText
-                && (react_1.default.createElement(Button_1.default, Object.assign({ "data-testid": SnackbarTestIds.SNACKBAR_BUTTON, onClick: () => { buttonAction(); }, disabled: disabledSnackbar, "aria-disabled": disabledSnackbar }, showPlaceholderIcon && { 'data-hasplaceholdericon': 'true' }), buttonText)),
+                && (react_1.default.createElement(Tooltip_1.default, { title: props.buttonTextToolTip },
+                    react_1.default.createElement(Button_1.default, Object.assign({ "data-testid": SnackbarTestIds.SNACKBAR_BUTTON, onClick: () => { buttonAction(); }, disabled: disabledSnackbar, "aria-disabled": disabledSnackbar }, showPlaceholderIcon && { 'data-hasplaceholdericon': 'true' }), buttonText))),
             (showPlaceholderIcon && react_1.default.isValidElement(placeholderIcon))
                 && (react_1.default.createElement(IconButton_1.default, { "data-testid": SnackbarTestIds.SNACKBAR_PLACEHOLDER_ICON, onClick: () => { placeholderIconAction(); }, disabled: disabledSnackbar, "aria-disabled": disabledSnackbar, variant: IconButton_1.IconButtonVariants.WITH_PADDING }, placeholderIcon)),
-            react_1.default.createElement(IconButton_1.default, { onClick: (e) => { rest.onClose(e, 'clickaway'); }, disabled: disabledSnackbar, "aria-disabled": disabledSnackbar, variant: IconButton_1.IconButtonVariants.WITH_PADDING },
-                react_1.default.createElement(close_1.default, { "data-testid": SnackbarTestIds.SNACKBAR_CLOSE })))));
+            react_1.default.createElement(Tooltip_1.default, { title: props.closeIconToolTip },
+                react_1.default.createElement(IconButton_1.default, { onClick: (e) => { rest.onClose(e, 'clickaway'); }, disabled: disabledSnackbar, "aria-disabled": disabledSnackbar, variant: IconButton_1.IconButtonVariants.WITH_PADDING },
+                    react_1.default.createElement(close_1.default, { "data-testid": SnackbarTestIds.SNACKBAR_CLOSE }))))));
 };
 Snackbar.defaultProps = {
     variant: SnackbarVariants.INFO,
@@ -251,6 +249,7 @@ Snackbar.defaultProps = {
     onClose: () => { },
     /* eslint-enable no-empty-function */
     showPlaceholderIcon: false,
+    closeIconToolTip: 'Close',
 };
 __exportStar(require("@mui/material/Snackbar"), exports);
 exports.default = Snackbar;

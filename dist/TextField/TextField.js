@@ -36,6 +36,7 @@ const FormHelperText_1 = __importDefault(require("@mui/material/FormHelperText")
 const warning_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/warning"));
 const material_1 = require("@mui/material");
 const utils_1 = require("@mui/utils");
+const styles_1 = require("@mui/material/styles");
 const Typography_1 = __importDefault(require("../Typography"));
 const InputLabelAndAction_1 = __importDefault(require("../prerequisite_components/InputLabelAndAction/InputLabelAndAction"));
 const theme_1 = require("../theme");
@@ -226,6 +227,13 @@ const getMuiTextFieldThemeOverrides = () => {
     };
 };
 exports.getMuiTextFieldThemeOverrides = getMuiTextFieldThemeOverrides;
+const StyledMuiFormControl = (0, styles_1.styled)(FormControl_1.default)((theme) => {
+    return {
+        '.MuiAutocomplete--label--focused': {
+            color: theme.theme.palette.primary.main,
+        },
+    };
+});
 const getEndAdornment = (props, isComboBox) => {
     var _a, _b;
     // This is workaround until proper Search component has already been implemented
@@ -240,8 +248,8 @@ const getEndAdornment = (props, isComboBox) => {
         !isComboBox && props.endAdornmentAction ? props.endAdornmentAction : null,
         isComboBox && ((_b = props.InputProps) === null || _b === void 0 ? void 0 : _b.endAdornment)));
 };
-const getInputLabelAndActionProps = (props) => {
-    const inputLabelId = props.label && props.id ? `${props.id}-label` : undefined;
+const getInputLabelAndActionProps = (props, isFocus) => {
+    const inputLabelId = props.id ? `${props.id}-label` : undefined;
     const inputLabelProps = {
         color: props.color,
         disabled: props.disabled,
@@ -255,6 +263,7 @@ const getInputLabelAndActionProps = (props) => {
         actionProps: props.actionProps,
         hiddenLabel: props.hiddenLabel,
         fullWidth: props.fullWidth,
+        isFocus,
     };
     return inputLabelProps;
 };
@@ -295,7 +304,7 @@ const renderNonEditInput = (props, muiTextFieldProps) => {
     }
     return react_1.default.createElement(Typography_1.default, { variant: "body2" }, muiTextFieldProps.value ? muiTextFieldProps.value : null);
 };
-const renderInput = (props) => {
+const renderInput = (props, setIsFocus) => {
     const muiTextFieldProps = getMuiTextFieldProps(props);
     const helperTextId = props.helperText && props.id ? `${props.id}-helper-text` : undefined;
     if (props.nonEdit) {
@@ -303,19 +312,27 @@ const renderInput = (props) => {
             renderNonEditInput(props, muiTextFieldProps),
             react_1.default.createElement(FormHelperText_1.default, { id: helperTextId }, muiTextFieldProps.helperText)));
     }
-    return react_1.default.createElement(TextField_1.default, Object.assign({}, muiTextFieldProps));
+    return (react_1.default.createElement(TextField_1.default, Object.assign({}, muiTextFieldProps, { onFocus: () => {
+            setIsFocus(true);
+        }, onBlur: () => {
+            setIsFocus(false);
+        } })));
 };
 const TextField = react_1.default.forwardRef((_a, forwardRef) => {
     var props = __rest(_a, []);
-    const muiInputLabelProps = getInputLabelAndActionProps(props);
+    const [isFocus, setIsFocus] = react_1.default.useState(false);
     if (!props.id) {
         const id = (0, utils_1.unstable_useId)();
         props.id = id;
     }
+    else {
+        props.id = `${(0, utils_1.unstable_useId)()}${props.id}`;
+    }
+    const muiInputLabelProps = getInputLabelAndActionProps(props, isFocus);
     const muiFormControlProps = getMuiFormControlProps(props, forwardRef);
-    return (react_1.default.createElement(FormControl_1.default, Object.assign({}, muiFormControlProps),
+    return (react_1.default.createElement(StyledMuiFormControl, Object.assign({}, muiFormControlProps),
         react_1.default.createElement(InputLabelAndAction_1.default, Object.assign({}, muiInputLabelProps)),
-        renderInput(props)));
+        renderInput(props, setIsFocus)));
 });
 TextField.defaultProps = {
     margin: 'none',

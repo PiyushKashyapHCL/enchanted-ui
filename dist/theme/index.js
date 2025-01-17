@@ -10,7 +10,7 @@ const CircularProgress_1 = require("../ProgressIndicator/CircularProgress/Circul
 const Snackbar_1 = require("../Snackbar/Snackbar");
 const Radio_1 = require("../Radio");
 const Button_1 = require("../Button/Button");
-// import { getMuiToggleButtonThemeOverrides } from '../hidden_components/ToggleButton/ToggleButton'; DXQ-34068 - currently hidden as requested by UIUX
+const ToggleButton_1 = require("../ToggleButton/ToggleButton");
 const Link_1 = require("../Link");
 const Breadcrumbs_1 = require("../Breadcrumbs");
 const Select_1 = require("../Select");
@@ -35,6 +35,7 @@ const ListItemAvatar_1 = require("../List/ListItemAvatar");
 const ListItemButton_1 = require("../List/ListItemButton");
 const ListItemIcon_1 = require("../List/ListItemIcon");
 const ListItemText_1 = require("../List/ListItemText");
+const ToggleButtonGroup_1 = require("../ToggleButtonGroup");
 const ensureToGetColor = (color) => {
     if (color === undefined) {
         return colors_1.UNKNOWN_COLOR_CODE;
@@ -158,6 +159,7 @@ const PALETTE_LIGHT = {
     primary: {
         main: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE07)),
         dark: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.PRIMARY_DARK)),
+        darkInverse: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.PRIMARY_DARK_INVERSE)),
         inverse: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE09)),
     },
     error: {
@@ -216,12 +218,15 @@ const PALETTE_LIGHT = {
         hover: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.BLACK7P)),
         hoverOpacityModified: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.BLACK7P)),
         selected: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE07)),
+        selectedInverse: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE09)),
         selectedOpacityModified: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE07_8P)),
+        selectedOpacityHover: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE07_20P)),
         disabled: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.BLACK38P)),
         disabledBackground: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.NEUTRALGREY150)),
         disabledOpacityModified: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.BLACK8P)),
         disableOpacityHover: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.BLACK15P)),
         focus: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE07)),
+        focusInverse: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE09)),
         focusOpacityModified: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.HCLSOFTWAREBLUE07_12P)),
         inverse: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.WHITE80P)),
         disabledInverse: (0, exports.ensureToGetColor)(colors_1.Colors.get(colors_1.ColorNames.WHITE38P)),
@@ -286,7 +291,7 @@ const getThemeOptions = (direction, mode) => {
         palette: getPalette(mode),
         direction,
         shadows,
-        components: Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (0, Chip_1.getMuiChipThemeOverrides)()), (0, Checkbox_1.getMuiCheckboxThemeOverrides)()), (0, Radio_1.getMuiRadioThemeOverrides)()), (0, TextField_1.getMuiTextFieldThemeOverrides)()), (0, Button_1.getMuiButtonThemeOverrides)()), (0, Link_1.getMuiLinkThemeOverrides)()), (0, Breadcrumbs_1.getMuiBreadcrumbsThemeOverrides)()), (0, CircularProgress_1.getMuiCircularProgressThemeOverrides)()), (0, Select_1.getMuiSelectThemeOverrides)()), (0, Autocomplete_1.getMuiAutocompleteThemeOverrides)()), (0, Switch_1.getMuiSwitchThemeOverrides)()), (0, Divider_1.getMuiDividerThemeOverrides)()), (0, Snackbar_1.getMuiSnackbarThemeOverrides)()), (0, IconButton_1.getMuiIconButtonThemeOverrides)()), (0, Paper_1.getMuiPaperThemeOverrides)()), (0, Avatar_1.getMuiAvatarThemeOverrides)()), (0, Tooltip_1.getMuiTooltipThemeOverrides)()), (0, Backdrop_1.getMuiBackdropThemeOverrides)()), (0, Dialog_1.getMuiDialogThemeOverrides)()), (0, Menu_1.getMuiMenuThemeOverrides)()), (0, MenuItem_1.getMuiMenuItemThemeOverrides)()), (0, FormControlLabel_1.getMuiFormControlLabelThemeOverrides)()), (0, Typography_1.getMuiTypographyThemeOverrides)()), (0, Alert_1.getMuiAlertThemeOverrides)()), (0, Pagination_1.getMuiTablePaginationThemeOverrides)()), (0, List_1.getMuiListThemeOverrides)()), (0, ListItem_1.getMuiListItemThemeOverrides)()), (0, ListItemAvatar_1.getMuiListItemAvatarThemeOverrides)()), (0, ListItemButton_1.getMuiListItemButtonThemeOverrides)()), (0, ListItemIcon_1.getMuiListItemIconThemeOverrides)()), (0, ListItemText_1.getMuiListItemTextThemeOverrides)()),
+        components: Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (0, Chip_1.getMuiChipThemeOverrides)()), (0, Checkbox_1.getMuiCheckboxThemeOverrides)()), (0, Radio_1.getMuiRadioThemeOverrides)()), (0, TextField_1.getMuiTextFieldThemeOverrides)()), (0, Button_1.getMuiButtonThemeOverrides)()), (0, ToggleButton_1.getMuiToggleButtonThemeOverrides)()), (0, ToggleButtonGroup_1.getMuiToggleButtonGroupThemeOverrides)()), (0, Link_1.getMuiLinkThemeOverrides)()), (0, Breadcrumbs_1.getMuiBreadcrumbsThemeOverrides)()), (0, CircularProgress_1.getMuiCircularProgressThemeOverrides)()), (0, Select_1.getMuiSelectThemeOverrides)()), (0, Autocomplete_1.getMuiAutocompleteThemeOverrides)()), (0, Switch_1.getMuiSwitchThemeOverrides)()), (0, Divider_1.getMuiDividerThemeOverrides)()), (0, Snackbar_1.getMuiSnackbarThemeOverrides)()), (0, IconButton_1.getMuiIconButtonThemeOverrides)()), (0, Paper_1.getMuiPaperThemeOverrides)()), (0, Avatar_1.getMuiAvatarThemeOverrides)()), (0, Tooltip_1.getMuiTooltipThemeOverrides)()), (0, Backdrop_1.getMuiBackdropThemeOverrides)()), (0, Dialog_1.getMuiDialogThemeOverrides)()), (0, Menu_1.getMuiMenuThemeOverrides)()), (0, MenuItem_1.getMuiMenuItemThemeOverrides)()), (0, FormControlLabel_1.getMuiFormControlLabelThemeOverrides)()), (0, Typography_1.getMuiTypographyThemeOverrides)()), (0, Alert_1.getMuiAlertThemeOverrides)()), (0, Pagination_1.getMuiTablePaginationThemeOverrides)()), (0, List_1.getMuiListThemeOverrides)()), (0, ListItem_1.getMuiListItemThemeOverrides)()), (0, ListItemAvatar_1.getMuiListItemAvatarThemeOverrides)()), (0, ListItemButton_1.getMuiListItemButtonThemeOverrides)()), (0, ListItemIcon_1.getMuiListItemIconThemeOverrides)()), (0, ListItemText_1.getMuiListItemTextThemeOverrides)()),
     };
     return themeOptions;
 };

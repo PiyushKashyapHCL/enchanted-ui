@@ -28,6 +28,8 @@ export interface IHeaderStartSection {
     avatar?: React.ReactNode;
     subtitle?: string;
     favoritesToggleIcon?: React.ReactNode;
+    favoritesToggleComponent?: React.ReactNode;
+    backIconToolTip?: string;
 }
 export interface HeaderProps extends MuiContainerProps {
     startSection: IHeaderStartSection;

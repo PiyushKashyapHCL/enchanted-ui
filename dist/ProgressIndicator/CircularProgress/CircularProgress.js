@@ -69,9 +69,11 @@ const getMuiCircularProgressThemeOverrides = () => {
         MuiCircularProgress: {
             styleOverrides: {
                 root: ({ ownerState, theme }) => {
-                    return (Object.assign(Object.assign(Object.assign(Object.assign({}, theme.typography.body2), { color: theme.palette.primary.main, position: 'absolute', left: 0 }), (ownerState.variant === CircularProgressVariants.DETERMINATE && ownerState.id === CircularProgressTestIds.PROGRESS_TRAIL) && {
-                        color: theme.palette.action.hover,
-                    }), ownerState.variant === CircularProgressVariants.DETERMINATE && {
+                    return (Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, theme.typography.body2), { color: (ownerState.withbackdrop === 1 || ownerState.withbackdrop === true) ? theme.palette.info.inverse : theme.palette.primary.main, position: 'absolute', left: 0 }), (ownerState.variant === CircularProgressVariants.DETERMINATE && ownerState.id === CircularProgressTestIds.PROGRESS_TRAIL) && {
+                        color: (ownerState.withbackdrop === 1 || ownerState.withbackdrop === true) ? theme.palette.action.hoverInverse : theme.palette.action.hover,
+                    }), { '&.backdrop': Object.assign({ color: theme.palette.info.inverse }, (ownerState.variant === CircularProgressVariants.DETERMINATE && ownerState.id === CircularProgressTestIds.PROGRESS_TRAIL) && {
+                            color: theme.palette.action.hoverInverse,
+                        }) }), ownerState.variant === CircularProgressVariants.DETERMINATE && {
                         '+ .MuiBox-root': {
                             top: '50%',
                             left: '50%',
@@ -92,15 +94,15 @@ const getMuiCircularProgressThemeOverrides = () => {
 };
 exports.getMuiCircularProgressThemeOverrides = getMuiCircularProgressThemeOverrides;
 const CircularProgress = (_a) => {
-    var props = __rest(_a, []);
+    var { withbackdrop } = _a, props = __rest(_a, ["withbackdrop"]);
     return (react_1.default.createElement(Box_1.default, { sx: {
             position: 'relative',
             display: 'inline-block',
             width: props.size,
             height: props.size,
         }, "data-testid": CircularProgressTestIds.PROGRESS_ROOT },
-        react_1.default.createElement(CircularProgress_1.default, Object.assign({}, props, { id: CircularProgressTestIds.PROGRESS_TRAIL, "data-testid": CircularProgressTestIds.PROGRESS_TRAIL, variant: CircularProgressVariants.DETERMINATE, value: 100 })),
-        react_1.default.createElement(CircularProgress_1.default, Object.assign({}, props, { "data-testid": CircularProgressTestIds.PROGRESS_CIRCLE })),
+        react_1.default.createElement(CircularProgress_1.default, Object.assign({ className: withbackdrop ? 'backdrop' : '' }, props, { id: CircularProgressTestIds.PROGRESS_TRAIL, "data-testid": CircularProgressTestIds.PROGRESS_TRAIL, variant: CircularProgressVariants.DETERMINATE, value: 100 })),
+        react_1.default.createElement(CircularProgress_1.default, Object.assign({ className: withbackdrop ? 'backdrop' : '' }, props, { "data-testid": CircularProgressTestIds.PROGRESS_CIRCLE })),
         (props.variant === CircularProgressVariants.DETERMINATE && props.value !== undefined && props.value > 0 && Boolean(props.showprogress))
             && (react_1.default.createElement(Box_1.default, null,
                 react_1.default.createElement(Typography_1.default, { variant: "body2", fontSize: getScalingFontSize(typeof props.size === 'number' ? props.size : 0), "data-testid": CircularProgressTestIds.PROGRESS_LABEL }, `${Math.round(props.value)}%`)))));
@@ -110,6 +112,7 @@ const defaultProps = {
     size: 40,
     variant: CircularProgressVariants.INDETERMINATE,
     showprogress: 0,
+    withbackdrop: false,
     value: 0,
 };
 CircularProgress.defaultProps = defaultProps;

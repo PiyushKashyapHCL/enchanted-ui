@@ -189,6 +189,7 @@ export interface ColorType extends ColorPartial {
     'HCLSOFTWAREBLUE07'?: string;
     'HCLSOFTWAREBLUE07_12'?: string;
     'HCLSOFTWAREBLUE07_8'?: string;
+    'HCLSOFTWAREBLUE07_20'?: string;
     'HCLSOFTWAREBLUE08'?: string;
     'HCLSOFTWAREBLUE09'?: string;
     'HCLSOFTWAREBLUE09_12'?: string;
@@ -212,6 +213,7 @@ export { default as hclsoftwareblue } from './hclsoftwareblue';
 export declare enum ColorNames {
     PRIMARY_MAIN = "PrimaryMain",
     PRIMARY_DARK = "PrimaryDark",
+    PRIMARY_DARK_INVERSE = "PrimaryDarkInverse",
     PRIMARY_HOVER = "PrimaryHover",
     PRIMARY_INVERSE = "PrimaryInverse",
     PRIMARY_INVERSE_HOVER = "PrimaryInverseHover",
@@ -441,6 +443,7 @@ export declare enum ColorNames {
     HCLSOFTWAREBLUE07 = "HCLSOFTWAREBLUE07",
     HCLSOFTWAREBLUE07_12P = "HCLSOFTWAREBLUE07 (12P)",
     HCLSOFTWAREBLUE07_8P = "HCLSOFTWAREBLUE07 (8P)",
+    HCLSOFTWAREBLUE07_20P = "HCLSOFTWAREBLUE07 (20P)",
     HCLSOFTWAREBLUE08 = "HCLSOFTWAREBLUE08",
     HCLSOFTWAREBLUE09 = "HCLSOFTWAREBLUE09",
     HCLSOFTWAREBLUE09_12P = "HCLSOFTWAREBLUE09 (12P)",

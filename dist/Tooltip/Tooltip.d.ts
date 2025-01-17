@@ -24,7 +24,7 @@ export declare enum TooltipPlacement {
     LEFTSTART = "left-start"
 }
 export type TooltipProps = MuiTooltipProps & {
-    title?: string;
+    title?: React.ReactNode;
     type?: string;
     maxwidth?: number;
     tooltipsize?: string;

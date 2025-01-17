@@ -1,15 +1,18 @@
 "use strict";
-/*
- ********************************************************************
- * Licensed Materials - Property of HCL                             *
- *                                                                  *
- * Copyright HCL Technologies Ltd. 2024. All Rights Reserved.       *
- *                                                                  *
- * Note to US Government Users Restricted Rights:                   *
- *                                                                  *
- * Use, duplication or disclosure restricted by GSA ADP Schedule    *
- ********************************************************************
- */
+/* ======================================================================== *
+ * Copyright 2024 HCL America Inc.                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ * http://www.apache.org/licenses/LICENSE-2.0                               *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ * ======================================================================== */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -111,16 +114,11 @@ const StyledList = (0, material_1.styled)(List_1.default)((props) => {
     return ({
         background: theme.palette.background.paper,
         boxShadow: theme.shadows[6],
-        maxHeight: '297px',
+        maxHeight: '305px',
+        width: '360px',
         overflowY: 'scroll',
         '.MuiListItem-root': {
             '.MuiListItemButton-root': {
-                '.MuiListItemAvatar-root': {
-                    '.MuiAvatar-root': {
-                        height: '24px',
-                        width: '24px',
-                    },
-                },
                 '.MuiListItemText-root': {
                     marginRight: '8px',
                     '[data-testid=pending-item-text-primary]': {
@@ -131,11 +129,13 @@ const StyledList = (0, material_1.styled)(List_1.default)((props) => {
                             display: 'inline',
                             overflow: 'hidden',
                             whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis',
                         }, '[data-testid=failed-status-label]': {
                             color: theme.palette.error.main,
                             display: 'inline',
                             overflow: 'hidden',
                             whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis',
                         }, '[data-testid=pending-item-text-secondary]': {
                             color: theme.palette.text.disabled,
                         }, '[data-testid=learn-more-button]': {
@@ -167,11 +167,11 @@ const StyledList = (0, material_1.styled)(List_1.default)((props) => {
     });
 });
 /**
- * @component Renders the progress item component.
+ * @component Renders the progress items component.
  * @param {ProgressItemProps} props - The component props.
  * @returns {JSX.Element} The rendered component.
  */
-const ProgressItem = (props) => {
+const ProgressItems = (props) => {
     const { file, retryUploadItem, cancelItem, navigateFolder, literals, learnMoreOnFailure, translation, } = props;
     const [hoveredFile, setHoveredFile] = (0, react_1.useState)(null);
     let folderId = '';
@@ -230,7 +230,6 @@ const ProgressItem = (props) => {
         return '';
     };
     /**
-     *
      * @param fileSize
      * @return {convertedFileSize}
      * This function takes in file size value(type: number) as argument and converts the value(in bytes) to KB/MB/GB/TB
@@ -341,12 +340,12 @@ const ProgressItem = (props) => {
                 react_1.default.createElement(ListItemButton_1.default, { size: ListItemButton_1.ListSizes.SMALL },
                     queueItem.status === ProgressBar_1.EnumUploadStatus.SUCCESS
                         ? (react_1.default.createElement(ListItemAvatar_1.default, null,
-                            react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === ProgressBar_1.ProgressItemType.Folder ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON }))) : (react_1.default.createElement(ListItemAvatar_1.default, null,
-                        react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === 'folder' ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { opacity: 0.38 } }))),
+                            react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === ProgressBar_1.ProgressItemType.Folder ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px' } }))) : (react_1.default.createElement(ListItemAvatar_1.default, null,
+                        react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === 'folder' ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px', opacity: 0.38 } }))),
                     queueItem.status !== ProgressBar_1.EnumUploadStatus.PENDING
                         ? (react_1.default.createElement(ListItemText_1.default, { sx: {
                                 '& .MuiListItemText-primary': {
-                                    maxWidth: '255px',
+                                    maxWidth: '240px',
                                     overflow: 'hidden',
                                     whiteSpace: 'nowrap',
                                     textOverflow: 'ellipsis',
@@ -354,18 +353,19 @@ const ProgressItem = (props) => {
                             }, primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small" },
                                 react_1.default.createElement("span", null, queueItem.name))), secondary: (react_1.default.createElement(react_1.default.Fragment, null,
                                 queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { marginRight: '8px' }, "data-testid": "file-size" }, `${fileSizeValueConverter(queueItem.size)}`)),
-                                queueItem.status === ProgressBar_1.EnumUploadStatus.SUCCESS && (react_1.default.createElement("span", { "data-testid": "upload-status-label", style: { maxWidth: '230px' } }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.successLabel : queueItem.message)),
+                                queueItem.status === ProgressBar_1.EnumUploadStatus.SUCCESS && (react_1.default.createElement("span", { "data-testid": "upload-status-label", style: { maxWidth: '225px' } }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.successLabel : queueItem.message)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.PROGRESS && (react_1.default.createElement("span", null, translation === null || translation === void 0 ? void 0 : translation.progressLabel)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.FAILURE && (react_1.default.createElement(Tooltip_1.default, { title: queueItem.message, tooltipsize: "small" },
                                     react_1.default.createElement("span", { "data-testid": "failed-status-label", style: {
-                                            maxWidth: showLearnMoreButton ? '165px' : '230px',
+                                            maxWidth: showLearnMoreButton ? '165px' : '225px',
                                         } }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.failureLabel : queueItem.message))),
-                                showLearnMoreButton && (react_1.default.createElement(Button_1.default, { style: { marginLeft: '4px', padding: '0px 3px 3px 3px' }, onClick: learnMoreOnFailure, onKeyDown: (event) => {
-                                        if (event.key === 'Enter') {
-                                            learnMoreOnFailure(event);
-                                        }
-                                    }, "data-testid": "learn-more-button" },
-                                    react_1.default.createElement(Typography_1.default, { variant: "caption" }, literals.learnMoreLabel))))) })) : (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small" },
+                                showLearnMoreButton && (react_1.default.createElement(Tooltip_1.default, { title: literals.learnMoreLabel, tooltipsize: "small" },
+                                    react_1.default.createElement(Button_1.default, { style: { marginLeft: '4px', padding: '0px 3px 3px 3px' }, onClick: learnMoreOnFailure, onKeyDown: (event) => {
+                                            if (event.key === 'Enter') {
+                                                learnMoreOnFailure(event);
+                                            }
+                                        }, "data-testid": "learn-more-button" },
+                                        react_1.default.createElement(Typography_1.default, { variant: "caption" }, literals.learnMoreLabel)))))) })) : (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small" },
                             react_1.default.createElement("span", { style: {
                                     maxWidth: '285px', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis',
                                 }, "data-testid": "pending-item-text-primary" }, queueItem.name))), secondary: (react_1.default.createElement(react_1.default.Fragment, null,
@@ -375,4 +375,4 @@ const ProgressItem = (props) => {
                     renderHoverIcon(queueItem)))));
     })));
 };
-exports.default = ProgressItem;
+exports.default = ProgressItems;

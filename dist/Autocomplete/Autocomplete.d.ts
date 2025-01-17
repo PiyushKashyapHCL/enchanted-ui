@@ -2,6 +2,7 @@ import React from 'react';
 import { AutocompleteProps as MuiAutocompleteProps } from '@mui/material/Autocomplete';
 import { Components, Theme } from '@mui/material';
 import { ActionProps } from '../prerequisite_components/InputLabelAndAction/InputLabelAndAction';
+import { TooltipPlacement } from '../Tooltip';
 /**
  * @typedef AutocompleteProps
  * @type {object}
@@ -13,6 +14,7 @@ export interface AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> exte
     nonEdit?: boolean;
     helperText?: string;
     helperIconTooltip?: string;
+    tooltipPlacement?: TooltipPlacement;
     label?: string;
     required?: boolean;
     focused?: boolean;

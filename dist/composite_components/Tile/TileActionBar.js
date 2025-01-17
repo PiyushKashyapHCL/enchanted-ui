@@ -28,7 +28,7 @@ const TileActionBar = (props) => {
         if ((index >= 0) && actionList && actionList.length > index) {
             return (react_1.default.createElement(material_1.Box, { mr: index === 0 && actionList.length > 1 ? 0.5 : 0 },
                 react_1.default.createElement(Tooltip_1.default, { title: actionList[index].toolTip },
-                    react_1.default.createElement(IconButton_1.default, { "data-testid": actionList[index].title, "aria-label": actionList[index].toolTip, disabled: disabled, id: itemId, onClick: (e) => { return actionList[index].handler(e, itemId); }, onKeyDown: (event) => { if (event.key === 'Enter')
+                    react_1.default.createElement(IconButton_1.default, { "data-testid": actionList[index].title, "aria-label": actionList[index].toolTip, disabled: disabled, id: itemId, sx: Object.assign({}, actionList[index].color && { color: actionList[index].color }), onClick: (e) => { return actionList[index].handler(e, itemId); }, onKeyDown: (event) => { if (event.key === 'Enter')
                             event.stopPropagation(); } }, actionList[index].iconObject))));
         }
         return undefined;
