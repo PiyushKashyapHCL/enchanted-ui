@@ -7,8 +7,10 @@
   "author": "",
   "license": "Apache-2.0",
   "private": false,
+  "homepage": "https://github.com/PiyushKashyapHCL/enchanted-ui#readme",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://PiyushKashyapHCL/enchanted-ui.git"
   },
   "keywords": [
     "react",
