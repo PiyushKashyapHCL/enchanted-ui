@@ -159,7 +159,7 @@ var TablePaginationLocalizationPlaceholders;
 const Pagination = (_a) => {
     var props = __rest(_a, []);
     const { translation } = props, rest = __rest(props, ["translation"]);
-    return (react_1.default.createElement(react_1.default.Fragment, null, props.count > 0 && (react_1.default.createElement(Table_1.default, null,
+    return (react_1.default.createElement(react_1.default.Fragment, null, props.count > 0 && (react_1.default.createElement(Table_1.default, { role: "presentation" },
         react_1.default.createElement(TableFooter_1.default, null,
             react_1.default.createElement(TableRow_1.default, null,
                 react_1.default.createElement(TablePagination_1.default, Object.assign({}, rest, { ActionsComponent: () => {
