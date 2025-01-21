@@ -53,7 +53,7 @@ const getMuiTablePaginationThemeOverrides = () => {
     return {
         MuiTablePagination: {
             styleOverrides: {
-                root: ({ ownerState }) => {
+                root: ({ ownerState, theme }) => {
                     return ({
                         borderBottom: 'none',
                         '[data-testid=tablePaginationActionsRoot]': {
@@ -87,6 +87,8 @@ const getMuiTablePaginationThemeOverrides = () => {
                                 },
                                 '.MuiFormControl-root': {
                                     height: '28px',
+                                    display: 'flex',
+                                    flexDirection: 'row',
                                 },
                                 // styles for Change Page Buttons inside TablePagination
                                 'button[data-testid=tablePaginationActionsPageFirst]': {
@@ -109,19 +111,25 @@ const getMuiTablePaginationThemeOverrides = () => {
                                 'div[data-testid=tablePaginationActionsRowsDiv]': {
                                     display: 'inline-flex',
                                     '.MuiFormLabel-root': {
-                                        display: 'none', // hides the form action label space from Autocomplete
+                                        maxWidth: 'none',
+                                        margin: '6px 4px 6px 0px',
+                                        fontWeight: '400',
+                                        color: theme.palette.text.primary,
                                     },
                                     '> .autocomplete-container': {
-                                        margin: '0 4px',
+                                        marginRight: '4px',
                                     },
                                 },
                                 'div[data-testid=tablePaginationActionsPageDiv]': {
                                     display: 'inline-flex',
                                     '.MuiFormLabel-root': {
-                                        display: 'none', // hides the form action label space from Autocomplete
+                                        maxWidth: 'none',
+                                        margin: '6px 4px 6px 0px',
+                                        fontWeight: '400',
+                                        color: theme.palette.text.primary,
                                     },
                                     '> .autocomplete-container': {
-                                        margin: '0 4px',
+                                        marginRight: '4px',
                                     },
                                 },
                                 '.MuiTypography-root[data-testid=tablePaginationActionsPageTotal]': {
